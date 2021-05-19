@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Projet 5.iml" filepath="$PROJECT_DIR$/.idea/Projet 5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/safetynet-alerts-endpoint-persons/safetynet-alerts-endpoint-persons.iml" filepath="$PROJECT_DIR$/safetynet-alerts-endpoint-persons/safetynet-alerts-endpoint-persons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/safetynet-alerts-model/safetynet-alerts-model.iml" filepath="$PROJECT_DIR$/safetynet-alerts-model/safetynet-alerts-model.iml" />
+    </modules>
+  </component>
+</project>

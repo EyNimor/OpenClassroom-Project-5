@@ -2,6 +2,7 @@ package com.openclassroom.safetynetalertslibrary.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ import org.json.simple.JSONObject;
 public class Persons {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @NotNull
@@ -122,11 +123,12 @@ public class Persons {
         this.zip = zip;
     }
 
+    /*
     @Override
     public String toString() {
         return "Persons [id= " + id + ", address=" + address + ", city=" + city + ", email=" + email + ", firstName=" + firstName
                 + ", lastname=" + lastName + ", phone=" + phone + ", zip=" + zip + "]";
-    }
+    } */
 
     public JSONObject toJsonObject() {
         JSONObject jsonObject = new JSONObject();

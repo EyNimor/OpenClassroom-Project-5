@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class dbJsonWriter {
 
-    public static void writeJsonFile(String filename, List<Persons> personsList) {
+    public static void writePersonsJsonFile(String filename, List<Persons> personsList) {
         JSONObject jsonObject = new JSONObject();
         JSONArray personsArray = new JSONArray();
 
