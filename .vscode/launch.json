@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SafetynetAlertsApplication<safetynet-alerts-endpoint-persons>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.openclassroom.safetynetalerts.SafetynetAlertsApplication",
+            "projectName": "safetynet-alerts-endpoint-persons",
+            "args": ""
+        }
+    ]
+}

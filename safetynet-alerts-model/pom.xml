@@ -11,7 +11,7 @@
 
 	<groupId>com.openclassroom</groupId>
 	<artifactId>safetynet-alerts-model</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>safetynet-alerts-model</name>
 	<description>OpenClassroom - Projet 5 - Model</description>
 	<properties>
@@ -51,6 +51,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>        
+        <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.5</version>
@@ -87,10 +93,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 			<plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>

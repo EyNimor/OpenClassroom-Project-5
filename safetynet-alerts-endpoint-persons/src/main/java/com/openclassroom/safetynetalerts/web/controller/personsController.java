@@ -5,10 +5,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 import com.openclassroom.safetynetalerts.service.PersonsService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,47 +21,81 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/api")
 public class personsController {
 
+    private static final Logger logger = LogManager.getLogger("PersonsController");
+
     @Autowired
-    private PersonsService personsService;
-    
-    @GetMapping(value = "/communityEmail")
-    public List<String> emailListByCity(@RequestParam(value = "city") String city) {
-        return personsService.findCityService(city);
+    protected PersonsService ps;
+
+    @Value("${main.databasePath}")
+    protected String filename;
+
+    public static boolean testInProgess = false;
+
+    @PostConstruct
+    protected void initDB() {
+        if(testInProgess == false) {
+            logger.info("Récupération du .JSON vers la base de donnée");
+            try {
+                ps.recoverDatabaseFromJSON(filename, "persons");
+            }
+            catch(Exception e) {
+                logger.error("Échec de la récupération du .JSON", e);
+            }
+        }
     }
 
-    //Temporaire :
-    @GetMapping(value = "/person")
-    public List<Persons> personsDB() {
-        return personsService.findAllService();
+    @GetMapping(value = "/communityEmail")
+    public List<String> emailListByCity(@RequestParam(value = "city") String city) {
+        logger.info("Requête GET - Liste d'email, Paramètre Ville");
+        return ps.findCityService(city);
     }
 
     @PostMapping(value = "/person")
-    public ResponseEntity<Void> newPerson(@RequestBody Persons personToSave) {
-        Persons personAdded = personsService.savePerson(personToSave);
-        
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(personAdded.getId())
-                .toUri();
+    public ResponseEntity<Object> newPerson(@RequestBody Persons personToSave) {
+        logger.info("Requête POST - Paramètre Body Personne à enregistrer");
+        try {
+            ps.savePerson(personToSave);
+        }
+        catch(Exception e) {
+            logger.error("Échec de sauvegarde", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
-        return ResponseEntity.created(location).build();
+        if(testInProgess == false) {
+            try {
+                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+            }
+            catch(Exception e) {
+                logger.error("Échec de sauvegarde vers le .JSON", e); 
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping(value = "/person")
     public ResponseEntity<Void> updatePerson(@RequestBody Persons newPersonInfo) {
-        Persons personUpdated = personsService.savePerson(newPersonInfo);
+        logger.info("Requête PUT - Paramètre Body Personne à mettre à jour");
+        Persons personUpdated = ps.updatePerson(newPersonInfo);
+
+        if(testInProgess == false) {
+            try {
+                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+            }
+            catch(Exception e) {
+                logger.error("Échec de mise à jour du .JSON", e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -69,7 +108,18 @@ public class personsController {
 
     @DeleteMapping(value = "/person")
     public ResponseEntity<Void> deletePerson(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
-        boolean deleted = personsService.deletePerson(firstName, lastName);
+        logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
+        boolean deleted = ps.deletePerson(firstName, lastName);
+
+        if(testInProgess == false) {
+            try {
+                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+            }
+            catch(Exception e) {
+                logger.error("Échec de mise à jour du .JSON", e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
 
         if (deleted == false)
             return ResponseEntity.notFound().build();

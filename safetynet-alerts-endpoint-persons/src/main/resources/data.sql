@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS persons;
 
 CREATE TABLE persons (
-    id VARCHAR (250) NOT NULL,
+    id INT (250) PRIMARY KEY NOT NULL,
     first_Name VARCHAR(250) NOT NULL,
     last_Name VARCHAR(250) NOT NULL,
     address VARCHAR(250) NOT NULL,

@@ -35,14 +35,12 @@ public class Persons {
                  address,
                  city,
                  phone,
-                 email;
-                 
-    @NotNull
-    private Long zip;
+                 email,
+                 zip;
 
     public Persons() {}
 
-    public Persons(Integer id, String firstName, String lastname, String address, String city, String phone, String email, Long zip) {
+    public Persons(Integer id, String firstName, String lastname, String address, String city, String phone, String email, String zip) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastname;
@@ -53,7 +51,7 @@ public class Persons {
         this.zip = zip;
     }
 
-    public Persons(String firstName, String lastname, String address, String city, String phone, String email, Long zip) {
+    public Persons(String firstName, String lastname, String address, String city, String phone, String email, String zip) {
         this.firstName = firstName;
         this.lastName = lastname;
         this.address = address;
@@ -65,6 +63,10 @@ public class Persons {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -115,25 +117,24 @@ public class Persons {
         this.email = email;
     }
 
-    public Long getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(Long zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
-    /*
     @Override
     public String toString() {
-        return "Persons [id= " + id + ", address=" + address + ", city=" + city + ", email=" + email + ", firstName=" + firstName
-                + ", lastname=" + lastName + ", phone=" + phone + ", zip=" + zip + "]";
-    } */
+        return "Persons [address=" + address + ", city=" + city + ", email=" + email + ", firstName=" + firstName
+                + ", lastName=" + lastName + ", phone=" + phone + ", zip=" + zip + "]";
+    }
 
     public JSONObject toJsonObject() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("firstName", firstName);
-        jsonObject.put("lastname", lastName);
+        jsonObject.put("lastName", lastName);
         jsonObject.put("address", address);
         jsonObject.put("city", city);
         jsonObject.put("phone", phone);

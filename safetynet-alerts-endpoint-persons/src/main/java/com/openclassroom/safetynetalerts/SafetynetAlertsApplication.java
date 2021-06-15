@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackageClasses = Persons.class)
 public class SafetynetAlertsApplication {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SafetynetAlertsApplication.class, args);
 	}
 
