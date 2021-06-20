@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>com.openclassroom</groupId>
-	<artifactId>safetynet-alerts-endpoint-persons</artifactId>
+	<artifactId>safetynet-alerts-endpoint-firestations</artifactId>
 	<version>0.9-preRelease</version>
-	<name>safetynet-alerts-endpoint-persons</name>
-	<description>OpenClassroom - Projet 5 - Endpoint &quot;Persons&quot;</description>
+	<name>safetynet-alerts-endpoint-firestations</name>
+	<description>OpenClassroom - Projet 5 - Endpoint &quot;FireStations&quot;</description>
 	<properties>
 		<java.version>8</java.version>
 	</properties>
@@ -108,7 +108,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
             <scope>provided</scope>
-        </dependency>        
+        </dependency> 
 	</dependencies>
 
 	<build>

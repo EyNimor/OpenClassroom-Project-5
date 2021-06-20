@@ -95,11 +95,11 @@ public class PersonsService {
         return deleted;
     }
 
-    public void recoverDatabaseFromJSON(String filename, String key) throws Exception {
+    public void recoverDatabaseFromJSON(String filename) throws Exception {
         logger.info("Récupération du .JSON - " + filename);
         try {
             JSONObject dbObject = (JSONObject) dbReader.readJsonFile(filename);
-            JSONArray jsonArray = (JSONArray) dbObject.get(key);
+            JSONArray jsonArray = (JSONArray) dbObject.get("persons");
             for(int i = 0 ; i <= jsonArray.size() - 1 ; i++) {
                 JSONObject personJSON = (JSONObject) jsonArray.get(i);
                 Persons personToSave = new Persons((String) personJSON.get("firstName"),

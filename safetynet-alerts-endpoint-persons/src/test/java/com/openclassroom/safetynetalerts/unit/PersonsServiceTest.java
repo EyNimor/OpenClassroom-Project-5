@@ -58,7 +58,7 @@ public class PersonsServiceTest extends PersonsService {
     @Test
     void recoveringDatabaseTest() {
         try {
-            this.recoverDatabaseFromJSON(testDatabasePath, "persons");
+            this.recoverDatabaseFromJSON(testDatabasePath);
             returnedPersonsList = pDao.findAll();
             assertEquals(personsList.toString(), returnedPersonsList.toString());
         }

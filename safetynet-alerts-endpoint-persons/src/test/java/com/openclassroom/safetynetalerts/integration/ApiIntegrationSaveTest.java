@@ -82,7 +82,7 @@ public class ApiIntegrationSaveTest extends personsController {
         this.newPerson(personPostTest);
         pDao.deleteAll();
         try {
-            ps.recoverDatabaseFromJSON(filename, "persons");
+            ps.recoverDatabaseFromJSON(filename);
             returnedPerson = pDao.findAll().get(0);
             assertEquals(personPostTest.toString(), returnedPerson.toString());
         }
@@ -98,7 +98,7 @@ public class ApiIntegrationSaveTest extends personsController {
         this.updatePerson(personPutTest);
         pDao.deleteAll();
         try {
-            ps.recoverDatabaseFromJSON(filename, "persons");
+            ps.recoverDatabaseFromJSON(filename);
             returnedPerson = pDao.findAll().get(0);
             assertEquals(personPutTest.toString(), returnedPerson.toString());
         }
@@ -114,7 +114,7 @@ public class ApiIntegrationSaveTest extends personsController {
         this.newPerson(personDeleteTest);
         this.deletePerson(personDeleteTest.getFirstName(), personDeleteTest.getLastName());
         try {
-            ps.recoverDatabaseFromJSON(filename, "persons");
+            ps.recoverDatabaseFromJSON(filename);
             returnedPerson = pDao.findByFirstNameAndLastName(personDeleteTest.getFirstName(), personDeleteTest.getLastName());
             assertNull(returnedPerson);
         }

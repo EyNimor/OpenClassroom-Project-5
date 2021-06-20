@@ -1,12 +1,10 @@
-package com.openclassroom.safetynetalerts.web.controller;
-
-import java.util.List;
+package com.openclassroom.safetynetalertsendpointfirestations.web.controller;
 
 import javax.annotation.PostConstruct;
 
+import com.openclassroom.safetynetalertsendpointfirestations.service.FireStationsService;
 import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
-import com.openclassroom.safetynetalertslibrary.model.Persons;
-import com.openclassroom.safetynetalerts.service.PersonsService;
+import com.openclassroom.safetynetalertslibrary.model.FireStations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api")
-public class personsController {
-
-    private static final Logger logger = LogManager.getLogger("PersonsController");
+public class FireStationsController {
+    
+    private static final Logger logger = LogManager.getLogger("FireStationsController");
 
     @Autowired
-    protected PersonsService ps;
+    protected FireStationsService fsService;
 
     @Value("${main.databasePath}")
     protected String filename;
@@ -42,7 +39,7 @@ public class personsController {
         if(testInProgess == false) {
             logger.info("Récupération du .JSON vers la base de donnée");
             try {
-                ps.recoverDatabaseFromJSON(filename);
+                fsService.recoverDatabaseFromJSON(filename);
             }
             catch(Exception e) {
                 logger.error("Échec de la récupération du .JSON", e);
@@ -50,17 +47,11 @@ public class personsController {
         }
     }
 
-    @GetMapping(value = "/communityEmail")
-    public List<String> emailListByCity(@RequestParam(value = "city") String city) {
-        logger.info("Requête GET - Liste d'email, Paramètre Ville");
-        return ps.findCityService(city);
-    }
-
-    @PostMapping(value = "/person")
-    public ResponseEntity<Object> newPerson(@RequestBody Persons personToSave) {
-        logger.info("Requête POST - Paramètre Body Personne à enregistrer");
+    @PostMapping(value = "/fireStation")
+    public ResponseEntity<Object> newFireStation(@RequestBody FireStations fireStationToSave) {
+        logger.info("Requête POST - Paramètre Body FireStation à enregistrer");
         try {
-            ps.savePerson(personToSave);
+            fsService.saveFireStation(fireStationToSave);
         }
         catch(Exception e) {
             logger.error("Échec de sauvegarde", e);
@@ -69,7 +60,7 @@ public class personsController {
 
         if(testInProgess == false) {
             try {
-                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de sauvegarde vers le .JSON", e); 
@@ -79,33 +70,33 @@ public class personsController {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-    @PutMapping(value = "/person")
-    public ResponseEntity<Void> updatePerson(@RequestBody Persons newPersonInfo) {
-        logger.info("Requête PUT - Paramètre Body Personne à mettre à jour");
-        Persons personUpdated = ps.updatePerson(newPersonInfo);
+    
+    @PutMapping(value = "/fireStation")
+    public ResponseEntity<Void> updateFireStation(@RequestBody FireStations newFireStationInfo) {
+        logger.info("Requête PUT - Paramètre Body FireStation à mettre à jour");
+        FireStations fireStationUpdated = fsService.updatePerson(newFireStationInfo);
 
         if(testInProgess == false) {
             try {
-                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de mise à jour du .JSON", e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
-
+        
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping(value = "/person")
-    public ResponseEntity<Void> deletePerson(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
-        logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
-        boolean deleted = ps.deletePerson(firstName, lastName);
+    @DeleteMapping(value = "/fireStation")
+    public ResponseEntity<Void> deleteFireStation(@RequestParam(value = "address") String address) {
+        logger.info("Requête DELETE - Paramètre Addresse");
+        boolean deleted = fsService.deleteFireStation(address);
 
         if(testInProgess == false) {
             try {
-                dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
+                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de mise à jour du .JSON", e);
@@ -118,4 +109,5 @@ public class personsController {
         else
             return ResponseEntity.ok().build();
     }
+
 }
