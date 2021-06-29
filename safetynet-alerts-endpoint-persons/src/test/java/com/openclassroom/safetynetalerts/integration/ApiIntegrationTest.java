@@ -52,11 +52,11 @@ public class ApiIntegrationTest extends personsController {
         personPutTest = new Persons("Jean-Test", "IntegrationTest", "10 Rue Du Test", "New TestCity", "0611223344", "email.put.test@tmail.com", "00000");
         personDeleteTest = new Persons("Jean-Test", "DeleteTest", "21 Rue Du Delete", "DeleteCity", "0699887766", "email.delete.test@tmail.com", "00000");
 
-        personsInitDBTest1 = new Persons(2, "Jean-Test", "UnitServiceTest", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
-        personsInitDBTest2 = new Persons(3, "Marie-Test", "UnitServiceTest", "1 Rue Du Test", "TestCity", "0626272643", "marie.unit.test@tmail.com", "01860");
-        personsInitDBTest3 = new Persons(4, "Kevin-Test", "UnitServiceTest", "2 Rue Du Test", "TestCity", "0672855284", "kevin.unit.test@tmail.com", "01860");
-        personsInitDBTest4 = new Persons(5, "Monika-Test", "UnitServiceTest", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
-        personsInitDBTest5 = new Persons(6, "Sebastien-Test", "UnitServiceTest", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
+        personsInitDBTest1 = new Persons(2, "Jean-Test", "Test", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
+        personsInitDBTest2 = new Persons(3, "Marie-Test", "Test", "1 Rue Du Test", "TestCity", "0626272643", "marie.unit.test@tmail.com", "01860");
+        personsInitDBTest3 = new Persons(4, "Kevin-Test", "Test", "2 Rue Du Test", "TestCity", "0672855284", "kevin.unit.test@tmail.com", "01860");
+        personsInitDBTest4 = new Persons(5, "Monika-Test", "Test", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
+        personsInitDBTest5 = new Persons(6, "Sebastien-Test", "Test", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
 
         expectedPersonsList.add(personsInitDBTest1);
         expectedPersonsList.add(personsInitDBTest2);
