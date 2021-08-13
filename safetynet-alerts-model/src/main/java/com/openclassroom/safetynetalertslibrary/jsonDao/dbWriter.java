@@ -1,8 +1,8 @@
 package com.openclassroom.safetynetalertslibrary.jsonDao;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
-import java.util.Optional;
 
 import com.openclassroom.safetynetalertslibrary.model.FireStations;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class dbWriter {
 
-    public static void writePersonsToJsonFile(String filename, List<Persons> personsList) {
+    public static void writePersonsToJsonFile(File filename, List<Persons> personsList) {
         try {
             JSONObject jsonObject = (JSONObject) dbReader.readJsonFile(filename);
             JSONArray personsArray = new JSONArray();
@@ -32,7 +32,7 @@ public class dbWriter {
         catch(Exception e) { e.printStackTrace(); }
 	}
 
-    public static void writeFireStationsToJsonFile(String filename, List<FireStations> fireStationsList) {
+    public static void writeFireStationsToJsonFile(File filename, List<FireStations> fireStationsList) {
         try {
             JSONObject jsonObject = (JSONObject) dbReader.readJsonFile(filename);
             JSONArray fireStationsArray = new JSONArray();
@@ -49,7 +49,7 @@ public class dbWriter {
         catch(Exception e) { e.printStackTrace(); }
 	}
 
-    public static void writeMedicalRecordsToJsonFile(String filename, List<MedicalRecords> medicalRecordsList) {
+    public static void writeMedicalRecordsToJsonFile(File filename, List<MedicalRecords> medicalRecordsList) {
         try {
             JSONObject jsonObject = (JSONObject) dbReader.readJsonFile(filename);
             JSONArray medicalRecordsArray = new JSONArray();

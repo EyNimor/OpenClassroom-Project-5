@@ -1,5 +1,6 @@
 package com.openclassroom.safetynetalerts.web.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +12,6 @@ import com.openclassroom.safetynetalerts.service.PersonsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +32,7 @@ public class personsController {
     @Autowired
     protected PersonsService ps;
 
-    @Value("${main.databasePath}")
-    protected String filename;
+    protected File filename = new File("../Database/data.json");
 
     public static boolean testInProgress = false;
 
@@ -87,7 +86,7 @@ public class personsController {
     @PutMapping(value = "/person")
     public ResponseEntity<Void> updatePerson(@RequestBody Persons newPersonInfo) {
         logger.info("Requête PUT - Paramètre Body Personne à mettre à jour");
-        Persons personUpdated = ps.updatePerson(newPersonInfo);
+        ps.updatePerson(newPersonInfo);
 
         if(testInProgress == false) {
             try {

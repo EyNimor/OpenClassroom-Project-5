@@ -1,5 +1,7 @@
 package com.openclassroom.safetynetalertsendpointfirestations.web.controller;
 
+import java.io.File;
+
 import javax.annotation.PostConstruct;
 
 import com.openclassroom.safetynetalertsendpointfirestations.service.FireStationsService;
@@ -9,7 +11,6 @@ import com.openclassroom.safetynetalertslibrary.model.FireStations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,7 @@ public class FireStationsController {
     @Autowired
     protected FireStationsService fsService;
 
-    @Value("${main.databasePath}")
-    protected String filename;
+    protected File filename = new File("../Database/data.json");
 
     public static boolean testInProgress = false;
 
@@ -74,7 +74,7 @@ public class FireStationsController {
     @PutMapping(value = "/fireStation")
     public ResponseEntity<Void> updateFireStation(@RequestBody FireStations newFireStationInfo) {
         logger.info("Requête PUT - Paramètre Body FireStation à mettre à jour");
-        FireStations fireStationUpdated = fsService.updatePerson(newFireStationInfo);
+        fsService.updatePerson(newFireStationInfo);
 
         if(testInProgress == false) {
             try {

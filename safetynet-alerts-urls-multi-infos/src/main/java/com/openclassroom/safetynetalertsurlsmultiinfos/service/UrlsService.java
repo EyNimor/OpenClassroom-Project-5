@@ -1,5 +1,6 @@
 package com.openclassroom.safetynetalertsurlsmultiinfos.service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class UrlsService {
         catch(IllegalArgumentException e) { 
             throw e;
         }
-        if(saved = false) {
+        if(saved == false) {
             return null;
         }
         else {
@@ -71,7 +72,7 @@ public class UrlsService {
         catch(IllegalArgumentException e) { 
             throw e;
         }
-        if(saved = false) {
+        if(saved == false) {
             return null;
         }
         else {
@@ -90,7 +91,7 @@ public class UrlsService {
         catch(IllegalArgumentException e) { 
             throw e;
         }
-        if(saved = false) {
+        if(saved == false) {
             return null;
         }
         else {
@@ -284,7 +285,7 @@ public class UrlsService {
         return filteredPersonInformations;
     }
 
-    public void recoverDatabaseFromJSON(String filename) throws Exception {
+    public void recoverDatabaseFromJSON(File filename) throws Exception {
         logger.info("Récupération du .JSON - " + filename);
         try {
             JSONObject dbObject = (JSONObject) dbReader.readJsonFile(filename);

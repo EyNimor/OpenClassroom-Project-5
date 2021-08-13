@@ -3,6 +3,7 @@ package com.openclassroom.safetynetalertsurlsmultiinfos.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.converter.json.MappingJacksonValue;
 
@@ -71,8 +71,7 @@ public class ApiIntegrationTests extends UrlsController {
 
     private static List<MedicalRecords> testMedicalRecordsDB;
 
-    @Value("${test.databasePath}")
-    private String testDatabasePath;
+    private File testDatabasePath = new File("../Database/testData.json");
 
     @BeforeAll
     private static void setUp() {
@@ -144,7 +143,7 @@ public class ApiIntegrationTests extends UrlsController {
         fsDao.deleteAll();
         mrDao.deleteAll();
         try {
-        urlsService.recoverDatabaseFromJSON(testDatabasePath);
+            urlsService.recoverDatabaseFromJSON(testDatabasePath);
         } catch(Exception e) {
             
         }

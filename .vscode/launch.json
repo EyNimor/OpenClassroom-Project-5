@@ -2,20 +2,35 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SafetynetAlertsEndpointFirestationsApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/safetynet-alerts-endpoint-firestations",
+            "mainClass": "com.openclassroom.safetynetalertsendpointfirestations.SafetynetAlertsEndpointFirestationsApplication",
+            "projectName": "safetynet-alerts-endpoint-firestations"
+        },
+        {
+            "type": "java",
+            "name": "Launch SafetynetAlertsEndpointMedicalrecordsApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/safetynet-alerts-endpoint-medicalrecords",
+            "mainClass": "com.openclassroom.safetynetalertsendpointmedicalrecords.SafetynetAlertsEndpointMedicalrecordsApplication",
+            "projectName": "safetynet-alerts-endpoint-medicalrecords"
+        },
+        {
+            "type": "java",
             "name": "Launch SafetynetAlertsUrlsMultiInfosApplication",
             "request": "launch",
+            "cwd": "${workspaceFolder}/safetynet-alerts-urls-multi-infos",
             "mainClass": "com.openclassroom.safetynetalertsurlsmultiinfos.SafetynetAlertsUrlsMultiInfosApplication",
             "projectName": "safetynet-alerts-urls-multi-infos"
         },
         {
             "type": "java",
-            "name": "Spring Boot-SafetynetAlertsApplication<safetynet-alerts-endpoint-persons>",
+            "name": "Launch SafetynetAlertsApplication<safetynet-alerts-endpoint-persons>",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
+            "cwd": "${workspaceFolder}/safetynet-alerts-endpoint-persons",
             "mainClass": "com.openclassroom.safetynetalerts.SafetynetAlertsApplication",
-            "projectName": "safetynet-alerts-endpoint-persons",
-            "args": ""
+            "projectName": "safetynet-alerts-endpoint-persons"
         }
     ]
 }

@@ -3,6 +3,7 @@ package com.openclassroom.safetynetalertsendpointfirestations.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -36,8 +36,7 @@ public class ApiIntegrationTest extends FireStationsController {
     private List<FireStations> entireDB;
     private static List<FireStations> expectedFireStationList;
 
-    @Value("${test.databasePath}")
-    private String testDatabasePath;
+    private File testDatabasePath = new File("../Database/testData.json");
 
     @BeforeAll
     private static void setUp() {

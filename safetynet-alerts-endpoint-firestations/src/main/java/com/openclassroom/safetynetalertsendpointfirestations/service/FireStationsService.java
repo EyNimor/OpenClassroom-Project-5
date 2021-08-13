@@ -1,5 +1,6 @@
 package com.openclassroom.safetynetalertsendpointfirestations.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
@@ -37,7 +38,7 @@ public class FireStationsService {
         catch(IllegalArgumentException e) { 
             throw e;
         }
-        if(saved = false) {
+        if(saved == false) {
             return null;
         }
         else {
@@ -59,7 +60,7 @@ public class FireStationsService {
             logger.error("Échec de Mise à Jour", e);
             e.printStackTrace(); 
         }
-        if(updated = false) {
+        if(updated == false) {
             return null;
         }
         else {
@@ -83,7 +84,7 @@ public class FireStationsService {
         return deleted;
     }
 
-    public void recoverDatabaseFromJSON(String filename) throws Exception {
+    public void recoverDatabaseFromJSON(File filename) throws Exception {
         logger.info("Récupération du .JSON - " + filename);
         try {
             JSONObject dbObject = (JSONObject) dbReader.readJsonFile(filename);

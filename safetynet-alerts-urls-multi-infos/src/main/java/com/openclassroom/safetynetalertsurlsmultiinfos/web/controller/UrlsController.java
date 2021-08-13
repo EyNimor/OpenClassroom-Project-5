@@ -1,5 +1,6 @@
 package com.openclassroom.safetynetalertsurlsmultiinfos.web.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +10,6 @@ import com.openclassroom.safetynetalertsurlsmultiinfos.service.UrlsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +25,7 @@ public class UrlsController {
     @Autowired
     protected UrlsService urlsService;
 
-    @Value("${main.databasePath}")
-    protected String filename;
+    protected File filename = new File("../Database/data.json");
 
     public static boolean testInProgress = false;
 

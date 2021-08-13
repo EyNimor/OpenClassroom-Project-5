@@ -6,9 +6,9 @@ import static org.junit.Assert.fail;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +28,7 @@ public class FireStationsServiceTest extends FireStationsService {
     private static List<FireStations> fireStationsList,
                                     returnedFireStationsList;
 
-    @Value("${test.databasePath}")
-    private String testDatabasePath;
+    private File testDatabasePath = new File("../Database/testData.json");
 
     @BeforeAll
     private static void setUp() {

@@ -1,8 +1,8 @@
 package com.openclassroom.safetynetalertsendpointmedicalrecords.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.openclassroom.safetynetalertslibrary.dao.MedicalRecordsDao;
 import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
@@ -45,7 +45,7 @@ public class MedicalRecordsService {
         catch(IllegalArgumentException e) { 
             throw e;
         }
-        if(saved = false) {
+        if(saved == false) {
             return null;
         }
         else {
@@ -72,7 +72,7 @@ public class MedicalRecordsService {
             logger.error("Échec de Mise à Jour", e);
             e.printStackTrace(); 
         }
-        if(updated = false) {
+        if(updated == false) {
             return null;
         }
         else {
@@ -96,7 +96,7 @@ public class MedicalRecordsService {
         return deleted;
     }
 
-    public void recoverDatabaseFromJSON(String filename) throws Exception {
+    public void recoverDatabaseFromJSON(File filename) throws Exception {
         logger.info("Récupération du .JSON - " + filename);
         try {
             JSONObject dbObject = (JSONObject) dbReader.readJsonFile(filename);

@@ -1,5 +1,7 @@
 package com.openclassroom.safetynetalertsendpointmedicalrecords.web.controller;
 
+import java.io.File;
+
 import javax.annotation.PostConstruct;
 
 import com.openclassroom.safetynetalertsendpointmedicalrecords.service.MedicalRecordsService;
@@ -9,7 +11,6 @@ import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,7 @@ public class MedicalRecordsController {
     @Autowired
     protected MedicalRecordsService mrService;
 
-    @Value("${main.databasePath}")
-    protected String filename;
+    protected File filename = new File("../Database/data.json");
 
     public static boolean testInProgress = false;
 
@@ -78,7 +78,7 @@ public class MedicalRecordsController {
     @PutMapping(value = "/medicalRecords")
     public ResponseEntity<Void> updateMedicalRecords(@RequestBody MedicalRecords newMedicalRecordsInfo) {
         logger.info("Requête PUT - Paramètre Body MedicalRecords à mettre à jour");
-        MedicalRecords medicalRecordsUpdated = mrService.updateMedicalRecords(newMedicalRecordsInfo);
+        mrService.updateMedicalRecords(newMedicalRecordsInfo);
 
         if(testInProgress == false) {
             try {

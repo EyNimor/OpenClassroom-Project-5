@@ -2,6 +2,7 @@ package com.openclassroom.safetynetalertsurlsmultiinfos.unit;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import com.openclassroom.safetynetalertsurlsmultiinfos.web.controller.UrlsContro
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -60,8 +60,7 @@ public class UrlsServiceTests extends UrlsService {
     private static List<MedicalRecords> medicalRecordsList,
                                         returnedMedicalRecordsList;
 
-    @Value("${test.databasePath}")
-    private String testDatabasePath;
+    private File testDatabasePath = new File("../Database/testData.json");
 
     @BeforeAll
     private static void setUp() {

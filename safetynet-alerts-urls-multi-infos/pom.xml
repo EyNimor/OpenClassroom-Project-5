@@ -97,7 +97,7 @@
         <dependency>
             <groupId>com.openclassroom</groupId>
             <artifactId>safetynet-alerts-model</artifactId>
-            <version>0.1</version>
+            <version>0.9-preRelease</version>
         </dependency>
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
