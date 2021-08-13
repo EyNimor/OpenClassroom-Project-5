@@ -41,7 +41,7 @@ public class ApiIntegrationTest extends FireStationsController {
 
     @BeforeAll
     private static void setUp() {
-        testInProgess = true;
+        testInProgress = true;
 
         expectedFireStationList = new ArrayList<>();
         
@@ -64,7 +64,7 @@ public class ApiIntegrationTest extends FireStationsController {
 
     @BeforeEach
     private void setUpPerTest() {
-        testInProgess = true;
+        testInProgress = true;
         fsDao.deleteAll();
     }
 
@@ -92,7 +92,7 @@ public class ApiIntegrationTest extends FireStationsController {
     @Test
     void initDBTest() {
         filename = testDatabasePath;
-        testInProgess = false;
+        testInProgress = false;
         initDB();
         entireDB = fsDao.findAll();
         assertEquals(expectedFireStationList.toString(), entireDB.toString());

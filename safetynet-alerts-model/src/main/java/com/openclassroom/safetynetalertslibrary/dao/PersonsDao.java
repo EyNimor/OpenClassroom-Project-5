@@ -12,4 +12,5 @@ public interface PersonsDao extends JpaRepository<Persons, Integer> {
     
     Persons findByFirstNameAndLastName(String firstName, String lastName);
     List<Persons> findByCity(String city);
+    List<Persons> findByAddress(String address);
 }

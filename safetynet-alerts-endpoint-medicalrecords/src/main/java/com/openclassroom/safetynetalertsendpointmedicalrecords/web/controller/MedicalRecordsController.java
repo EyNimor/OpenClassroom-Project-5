@@ -3,7 +3,7 @@ package com.openclassroom.safetynetalertsendpointmedicalrecords.web.controller;
 import javax.annotation.PostConstruct;
 
 import com.openclassroom.safetynetalertsendpointmedicalrecords.service.MedicalRecordsService;
-import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,11 +32,11 @@ public class MedicalRecordsController {
     @Value("${main.databasePath}")
     protected String filename;
 
-    public static boolean testInProgess = false;
+    public static boolean testInProgress = false;
 
     @PostConstruct
     protected void initDB() {
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             logger.info("Récupération du .JSON vers la base de donnée");
             try {
                 mrService.recoverDatabaseFromJSON(filename);
@@ -50,6 +50,10 @@ public class MedicalRecordsController {
     @PostMapping(value = "/medicalRecords")
     public ResponseEntity<Object> newMedicalRecords(@RequestBody MedicalRecords medicalRecordsToSave) {
         logger.info("Requête POST - Paramètre Body MedicalRecords à enregistrer");
+        if (mrService.isMedicalRecordsAlreadyExist(medicalRecordsToSave) == true) {
+            logger.error("Le nom et prénom du MedicalRecords founi par le client existe déjà dans la base de donnée");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         try {
             mrService.saveMedicalRecords(medicalRecordsToSave);
         }
@@ -58,7 +62,7 @@ public class MedicalRecordsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeMedicalRecordsToJsonFile(filename, mrService.findAllService());
             }
@@ -76,7 +80,7 @@ public class MedicalRecordsController {
         logger.info("Requête PUT - Paramètre Body MedicalRecords à mettre à jour");
         MedicalRecords medicalRecordsUpdated = mrService.updateMedicalRecords(newMedicalRecordsInfo);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeMedicalRecordsToJsonFile(filename, mrService.findAllService());
             }
@@ -94,7 +98,7 @@ public class MedicalRecordsController {
         logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
         boolean deleted = mrService.deleteMedicalRecords(firstName, lastName);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeMedicalRecordsToJsonFile(filename, mrService.findAllService());
             }

@@ -2,9 +2,10 @@ package com.openclassroom.safetynetalertsendpointmedicalrecords.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.openclassroom.safetynetalertslibrary.dao.MedicalRecordsDao;
-import com.openclassroom.safetynetalertslibrary.dao.dbReader;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,17 @@ public class MedicalRecordsService {
     
     @Autowired
     protected MedicalRecordsDao mrDao;
+
+    public boolean isMedicalRecordsAlreadyExist(MedicalRecords medicalRecordsToVerify) {
+        logger.info("MedicalRecords - Vérification en cas de doublons : " + medicalRecordsToVerify.toString());
+        MedicalRecords existingMedicalRecords = mrDao.findByFirstNameAndLastName(medicalRecordsToVerify.getFirstName(), medicalRecordsToVerify.getLastName());
+        if (existingMedicalRecords != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public MedicalRecords saveMedicalRecords(MedicalRecords medicalRecordsToSave) {
         logger.info("MedicalRecords - Sauvegarde : " + medicalRecordsToSave.toString());

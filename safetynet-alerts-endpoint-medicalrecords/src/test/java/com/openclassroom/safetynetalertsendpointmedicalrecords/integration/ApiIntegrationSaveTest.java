@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.openclassroom.safetynetalertsendpointmedicalrecords.web.controller.MedicalRecordsController;
 import com.openclassroom.safetynetalertslibrary.dao.MedicalRecordsDao;
-import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 
 import org.junit.jupiter.api.AfterEach;
@@ -55,7 +55,7 @@ public class ApiIntegrationSaveTest extends MedicalRecordsController {
 
     @BeforeAll
     private static void setUp() {
-        testInProgess = true;
+        testInProgress = true;
 
         testDBMedicalRecordsList = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class ApiIntegrationSaveTest extends MedicalRecordsController {
 
     @BeforeEach
     private void setUpPerTest() {
-        testInProgess = false;
+        testInProgress = false;
         filename = testDatabasePath;
         mrDao.deleteAll();
     }

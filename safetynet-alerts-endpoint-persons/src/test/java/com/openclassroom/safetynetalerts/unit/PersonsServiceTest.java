@@ -33,7 +33,7 @@ public class PersonsServiceTest extends PersonsService {
 
     @BeforeAll
     private static void setUp() {
-        personsController.testInProgess = true;
+        personsController.testInProgress = true;
 
         personsList = new ArrayList<>();
 

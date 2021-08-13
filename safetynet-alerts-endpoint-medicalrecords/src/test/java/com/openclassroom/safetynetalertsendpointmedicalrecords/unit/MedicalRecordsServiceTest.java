@@ -44,7 +44,7 @@ public class MedicalRecordsServiceTest extends MedicalRecordsService {
 
     @BeforeAll
     private static void setUp() {
-        MedicalRecordsController.testInProgess = true;
+        MedicalRecordsController.testInProgress = true;
 
         medicalRecordsList = new ArrayList<>();
 

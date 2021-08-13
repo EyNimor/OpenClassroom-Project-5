@@ -43,7 +43,7 @@ public class ApiIntegrationTest extends personsController {
 
     @BeforeAll
     private static void setUp() {
-        testInProgess = true;
+        testInProgress = true;
         
         expectedEmailList = new ArrayList<>();
         expectedPersonsList = new ArrayList<>();
@@ -67,7 +67,7 @@ public class ApiIntegrationTest extends personsController {
 
     @BeforeEach
     private void setUpPerTest() {
-        testInProgess = true;
+        testInProgress = true;
         pDao.deleteAll();
     }
 
@@ -104,7 +104,7 @@ public class ApiIntegrationTest extends personsController {
     @Test
     void initDBTest() {
         filename = testDatabasePath;
-        testInProgess = false;
+        testInProgress = false;
         initDB();
         entireDB = pDao.findAll();
         assertEquals(expectedPersonsList.toString(), entireDB.toString());

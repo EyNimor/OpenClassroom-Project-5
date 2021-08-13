@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openclassroom.safetynetalertslibrary.dao.PersonsDao;
-import com.openclassroom.safetynetalertslibrary.dao.dbReader;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +21,17 @@ public class PersonsService {
 
     @Autowired
     protected PersonsDao pDao;
+
+    public boolean isPersonAlreadyExist(Persons personToVerify) {
+        logger.info("Persons - Vérification en cas de doublons : " + personToVerify.toString());
+        Persons existingPerson = pDao.findByFirstNameAndLastName(personToVerify.getFirstName(), personToVerify.getLastName());
+        if (existingPerson != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public Persons savePerson(Persons personToSave) {
         logger.info("Person - Sauvegarde : " + personToSave.toString());

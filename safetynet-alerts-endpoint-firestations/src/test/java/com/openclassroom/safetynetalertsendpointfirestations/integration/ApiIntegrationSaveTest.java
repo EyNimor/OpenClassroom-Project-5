@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.openclassroom.safetynetalertsendpointfirestations.web.controller.FireStationsController;
 import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
-import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.FireStations;
 
 import org.junit.jupiter.api.AfterEach;
@@ -44,7 +44,7 @@ public class ApiIntegrationSaveTest extends FireStationsController {
 
     @BeforeAll
     private static void setUp() {
-        testInProgess = true;
+        testInProgress = true;
 
         testDBFireStationsList = new ArrayList<>();
         
@@ -67,7 +67,7 @@ public class ApiIntegrationSaveTest extends FireStationsController {
 
     @BeforeEach
     private void setUpPerTest() {
-        testInProgess = false;
+        testInProgress = false;
         filename = testDatabasePath;
         fsDao.deleteAll();
     }

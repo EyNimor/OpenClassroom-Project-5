@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SafetynetAlertsUrlsMultiInfosApplication",
+            "request": "launch",
+            "mainClass": "com.openclassroom.safetynetalertsurlsmultiinfos.SafetynetAlertsUrlsMultiInfosApplication",
+            "projectName": "safetynet-alerts-urls-multi-infos"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-SafetynetAlertsApplication<safetynet-alerts-endpoint-persons>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

@@ -33,7 +33,7 @@ public class FireStationsServiceTest extends FireStationsService {
 
     @BeforeAll
     private static void setUp() {
-        FireStationsController.testInProgess = true;
+        FireStationsController.testInProgress = true;
 
         fireStationsList = new ArrayList<>();
 

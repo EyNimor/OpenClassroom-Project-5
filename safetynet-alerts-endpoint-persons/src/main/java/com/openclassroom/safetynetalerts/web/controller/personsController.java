@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 import com.openclassroom.safetynetalerts.service.PersonsService;
 
@@ -35,11 +35,11 @@ public class personsController {
     @Value("${main.databasePath}")
     protected String filename;
 
-    public static boolean testInProgess = false;
+    public static boolean testInProgress = false;
 
     @PostConstruct
     protected void initDB() {
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             logger.info("Récupération du .JSON vers la base de donnée");
             try {
                 ps.recoverDatabaseFromJSON(filename);
@@ -59,6 +59,10 @@ public class personsController {
     @PostMapping(value = "/person")
     public ResponseEntity<Object> newPerson(@RequestBody Persons personToSave) {
         logger.info("Requête POST - Paramètre Body Personne à enregistrer");
+        if (ps.isPersonAlreadyExist(personToSave) == true) {
+            logger.error("Le nom et prénom du Persons founi par le client existe déjà dans la base de donnée");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         try {
             ps.savePerson(personToSave);
         }
@@ -67,7 +71,7 @@ public class personsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
             }
@@ -85,7 +89,7 @@ public class personsController {
         logger.info("Requête PUT - Paramètre Body Personne à mettre à jour");
         Persons personUpdated = ps.updatePerson(newPersonInfo);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
             }
@@ -103,7 +107,7 @@ public class personsController {
         logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
         boolean deleted = ps.deletePerson(firstName, lastName);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writePersonsToJsonFile(filename, ps.findAllService());
             }

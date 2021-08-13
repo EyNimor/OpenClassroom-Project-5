@@ -3,7 +3,7 @@ package com.openclassroom.safetynetalertsendpointfirestations.service;
 import java.util.List;
 
 import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
-import com.openclassroom.safetynetalertslibrary.dao.dbReader;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
 import com.openclassroom.safetynetalertslibrary.model.FireStations;
 
 import org.apache.logging.log4j.LogManager;

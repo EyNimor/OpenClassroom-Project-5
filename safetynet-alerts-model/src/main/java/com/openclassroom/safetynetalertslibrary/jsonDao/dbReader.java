@@ -1,4 +1,4 @@
-package com.openclassroom.safetynetalertslibrary.dao;
+package com.openclassroom.safetynetalertslibrary.jsonDao;
 
 import java.io.FileReader;
 

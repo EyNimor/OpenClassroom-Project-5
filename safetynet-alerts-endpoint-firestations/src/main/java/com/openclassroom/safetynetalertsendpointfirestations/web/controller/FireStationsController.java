@@ -3,7 +3,7 @@ package com.openclassroom.safetynetalertsendpointfirestations.web.controller;
 import javax.annotation.PostConstruct;
 
 import com.openclassroom.safetynetalertsendpointfirestations.service.FireStationsService;
-import com.openclassroom.safetynetalertslibrary.dao.dbWriter;
+import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
 import com.openclassroom.safetynetalertslibrary.model.FireStations;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,11 +32,11 @@ public class FireStationsController {
     @Value("${main.databasePath}")
     protected String filename;
 
-    public static boolean testInProgess = false;
+    public static boolean testInProgress = false;
 
     @PostConstruct
     protected void initDB() {
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             logger.info("Récupération du .JSON vers la base de donnée");
             try {
                 fsService.recoverDatabaseFromJSON(filename);
@@ -58,7 +58,7 @@ public class FireStationsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }
@@ -76,7 +76,7 @@ public class FireStationsController {
         logger.info("Requête PUT - Paramètre Body FireStation à mettre à jour");
         FireStations fireStationUpdated = fsService.updatePerson(newFireStationInfo);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }
@@ -94,7 +94,7 @@ public class FireStationsController {
         logger.info("Requête DELETE - Paramètre Addresse");
         boolean deleted = fsService.deleteFireStation(address);
 
-        if(testInProgess == false) {
+        if(testInProgress == false) {
             try {
                 dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
             }

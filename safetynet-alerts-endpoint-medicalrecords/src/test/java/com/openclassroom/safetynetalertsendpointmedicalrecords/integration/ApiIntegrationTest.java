@@ -52,7 +52,7 @@ public class ApiIntegrationTest extends MedicalRecordsController {
 
     @BeforeAll
     private static void setUp() {
-        testInProgess = true;
+        testInProgress = true;
 
         expectedMedicalRecordsList = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class ApiIntegrationTest extends MedicalRecordsController {
 
     @BeforeEach
     private void setUpPerTest() {
-        testInProgess = true;
+        testInProgress = true;
         mrDao.deleteAll();
     }
 
@@ -122,7 +122,7 @@ public class ApiIntegrationTest extends MedicalRecordsController {
     @Test
     void initDBTest() {
         filename = testDatabasePath;
-        testInProgess = false;
+        testInProgress = false;
         initDB();
         entireDB = mrDao.findAll();
         assertEquals(expectedMedicalRecordsList.toString(), entireDB.toString());
