@@ -3,9 +3,9 @@ package com.openclassroom.safetynetalertsendpointfirestations.service;
 import java.io.File;
 import java.util.List;
 
-import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
+import com.openclassroom.safetynetalertslibrary.dao.FirestationDao;
 import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,24 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FireStationsService {
+public class FirestationsService {
 
-    private static final Logger logger = LogManager.getLogger("FireStationsService");
+    private static final Logger logger = LogManager.getLogger("FirestationsService");
 
     @Autowired
-    protected FireStationDao fsDao;
+    protected FirestationDao fsDao;
 
-    public List<FireStations> findAllService() {
-        logger.info("FireStation - Récupérer toute la base de donnée");
+    public List<Firestations> findAllService() {
+        logger.info("Firestation - Récupérer toute la base de donnée");
         return fsDao.findAll();
     }
 
-    public FireStations saveFireStation(FireStations fireStationToSave) {
-        logger.info("FireStation - Sauvegarde : " + fireStationToSave.toString());
+    public Firestations saveFirestation(Firestations firestationToSave) {
+        logger.info("Firestation - Sauvegarde : " + firestationToSave.toString());
         boolean saved = false;
-        FireStations fireStationSaved = new FireStations();
+        Firestations firestationSaved = new Firestations();
         try { 
-            fireStationSaved = fsDao.save(fireStationToSave);
+            firestationSaved = fsDao.save(firestationToSave);
             saved = true;
         }
         catch(IllegalArgumentException e) { 
@@ -42,18 +42,18 @@ public class FireStationsService {
             return null;
         }
         else {
-            return fireStationSaved;
+            return firestationSaved;
         }
     }
 
-    public FireStations updatePerson(FireStations newFireStationInfo) {
-        logger.info("FireStation - Mise à Jour : " + newFireStationInfo.toString());
+    public Firestations updatePerson(Firestations newFirestationInfo) {
+        logger.info("Firestation - Mise à Jour : " + newFirestationInfo.toString());
         boolean updated = false;
-        FireStations fireStationUpdated = new FireStations();
+        Firestations firestationUpdated = new Firestations();
         try {
-            newFireStationInfo.setId(fsDao.findByAddress(newFireStationInfo.getAddress()).getId());
-            fsDao.delete(fsDao.findByAddress(newFireStationInfo.getAddress()));
-            fireStationUpdated = fsDao.save(newFireStationInfo);
+            newFirestationInfo.setId(fsDao.findByAddress(newFirestationInfo.getAddress()).getId());
+            fsDao.delete(fsDao.findByAddress(newFirestationInfo.getAddress()));
+            firestationUpdated = fsDao.save(newFirestationInfo);
             updated = true;
         }
         catch(IllegalArgumentException e) { 
@@ -64,17 +64,17 @@ public class FireStationsService {
             return null;
         }
         else {
-            return fireStationUpdated;
+            return firestationUpdated;
         }
     }
 
-    public boolean deleteFireStation(String address) {
-        logger.info("FireStation - Suppresion : " + address);
+    public boolean deleteFirestation(String address) {
+        logger.info("Firestation - Suppresion : " + address);
         boolean deleted = false;
-        FireStations fireStationToDelete;
+        Firestations firestationToDelete;
         try {
-            fireStationToDelete = fsDao.findByAddress(address);
-            fsDao.delete(fireStationToDelete);
+            firestationToDelete = fsDao.findByAddress(address);
+            fsDao.delete(firestationToDelete);
             deleted = true;
         }
         catch(IllegalArgumentException e) {
@@ -90,10 +90,10 @@ public class FireStationsService {
             JSONObject dbObject = (JSONObject) dbReader.readJsonFile(filename);
             JSONArray jsonArray = (JSONArray) dbObject.get("firestations");
             for(int i = 0 ; i <= jsonArray.size() - 1 ; i++) {
-                JSONObject fireStationJSON = (JSONObject) jsonArray.get(i);
-                FireStations fireStationToSave = new FireStations((String) fireStationJSON.get("address"),
-                                                                Integer.parseInt(fireStationJSON.get("station").toString()));
-                saveFireStation(fireStationToSave);
+                JSONObject firestationJSON = (JSONObject) jsonArray.get(i);
+                Firestations firestationToSave = new Firestations((String) firestationJSON.get("address"),
+                                                                Integer.parseInt(firestationJSON.get("station").toString()));
+                saveFirestation(firestationToSave);
             }
         }
         catch(Exception e) {

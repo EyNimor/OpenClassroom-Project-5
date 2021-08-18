@@ -4,9 +4,9 @@ import java.io.File;
 
 import javax.annotation.PostConstruct;
 
-import com.openclassroom.safetynetalertsendpointfirestations.service.FireStationsService;
+import com.openclassroom.safetynetalertsendpointfirestations.service.FirestationsService;
 import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api")
-public class FireStationsController {
+@RequestMapping(value = "/firestation")
+public class FirestationsController {
     
-    private static final Logger logger = LogManager.getLogger("FireStationsController");
+    private static final Logger logger = LogManager.getLogger("FirestationsController");
 
     @Autowired
-    protected FireStationsService fsService;
+    protected FirestationsService fsService;
 
     protected File filename = new File("../Database/data.json");
 
@@ -47,11 +47,11 @@ public class FireStationsController {
         }
     }
 
-    @PostMapping(value = "/fireStation")
-    public ResponseEntity<Object> newFireStation(@RequestBody FireStations fireStationToSave) {
-        logger.info("Requête POST - Paramètre Body FireStation à enregistrer");
+    @PostMapping(value = "/newFirestation")
+    public ResponseEntity<Object> newFirestation(@RequestBody Firestations firestationToSave) {
+        logger.info("Requête POST - Paramètre Body Firestation à enregistrer");
         try {
-            fsService.saveFireStation(fireStationToSave);
+            fsService.saveFirestation(firestationToSave);
         }
         catch(Exception e) {
             logger.error("Échec de sauvegarde", e);
@@ -60,7 +60,7 @@ public class FireStationsController {
 
         if(testInProgress == false) {
             try {
-                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
+                dbWriter.writeFirestationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de sauvegarde vers le .JSON", e); 
@@ -71,14 +71,14 @@ public class FireStationsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
-    @PutMapping(value = "/fireStation")
-    public ResponseEntity<Void> updateFireStation(@RequestBody FireStations newFireStationInfo) {
-        logger.info("Requête PUT - Paramètre Body FireStation à mettre à jour");
-        fsService.updatePerson(newFireStationInfo);
+    @PutMapping(value = "/updateFirestation")
+    public ResponseEntity<Void> updateFirestation(@RequestBody Firestations newFirestationInfo) {
+        logger.info("Requête PUT - Paramètre Body Firestation à mettre à jour");
+        fsService.updatePerson(newFirestationInfo);
 
         if(testInProgress == false) {
             try {
-                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
+                dbWriter.writeFirestationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de mise à jour du .JSON", e);
@@ -89,14 +89,14 @@ public class FireStationsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping(value = "/fireStation")
-    public ResponseEntity<Void> deleteFireStation(@RequestParam(value = "address") String address) {
+    @DeleteMapping(value = "/deleteFirestation")
+    public ResponseEntity<Void> deleteFirestation(@RequestParam(value = "address") String address) {
         logger.info("Requête DELETE - Paramètre Addresse");
-        boolean deleted = fsService.deleteFireStation(address);
+        boolean deleted = fsService.deleteFirestation(address);
 
         if(testInProgress == false) {
             try {
-                dbWriter.writeFireStationsToJsonFile(filename, fsService.findAllService());
+                dbWriter.writeFirestationsToJsonFile(filename, fsService.findAllService());
             }
             catch(Exception e) {
                 logger.error("Échec de mise à jour du .JSON", e);

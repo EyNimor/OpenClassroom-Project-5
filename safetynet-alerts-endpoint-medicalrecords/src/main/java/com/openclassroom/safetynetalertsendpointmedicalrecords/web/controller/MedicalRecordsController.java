@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/medicalRecords")
 public class MedicalRecordsController {
     
     private static final Logger logger = LogManager.getLogger("MedicalRecordsController");
@@ -47,7 +47,7 @@ public class MedicalRecordsController {
         }
     }
 
-    @PostMapping(value = "/medicalRecords")
+    @PostMapping(value = "/newMedicalRecords")
     public ResponseEntity<Object> newMedicalRecords(@RequestBody MedicalRecords medicalRecordsToSave) {
         logger.info("Requête POST - Paramètre Body MedicalRecords à enregistrer");
         if (mrService.isMedicalRecordsAlreadyExist(medicalRecordsToSave) == true) {
@@ -75,7 +75,7 @@ public class MedicalRecordsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping(value = "/medicalRecords")
+    @PutMapping(value = "/updateMedicalRecords")
     public ResponseEntity<Void> updateMedicalRecords(@RequestBody MedicalRecords newMedicalRecordsInfo) {
         logger.info("Requête PUT - Paramètre Body MedicalRecords à mettre à jour");
         mrService.updateMedicalRecords(newMedicalRecordsInfo);
@@ -93,7 +93,7 @@ public class MedicalRecordsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping(value = "/medicalRecords")
+    @DeleteMapping(value = "/deleteMedicalRecords")
     public ResponseEntity<Void> deleteMedicalRecords(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
         logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
         boolean deleted = mrService.deleteMedicalRecords(firstName, lastName);

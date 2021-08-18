@@ -8,7 +8,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 import com.openclassroom.safetynetalertsurlsmultiinfos.service.UrlsService;
@@ -31,14 +31,14 @@ public class UrlsServiceTests extends UrlsService {
     private static List<Persons> personsList,
                                 returnedPersonsList;
 
-    private static FireStations fireStationsTest1,
-                                fireStationsTest2,
-                                fireStationsTest3,
-                                fireStationsTest4,
-                                fireStationsTest5;
+    private static Firestations firestationsTest1,
+                                firestationsTest2,
+                                firestationsTest3,
+                                firestationsTest4,
+                                firestationsTest5;
 
-    private static List<FireStations> fireStationsList,
-                                    returnedFireStationsList;
+    private static List<Firestations> firestationsList,
+                                    returnedFirestationsList;
 
     private static MedicalRecords medicalRecordsTest1,
                                     medicalRecordsTest2,
@@ -67,7 +67,7 @@ public class UrlsServiceTests extends UrlsService {
         UrlsController.testInProgress = true;
 
         personsList = new ArrayList<>();
-        fireStationsList = new ArrayList<>();
+        firestationsList = new ArrayList<>();
         medicalRecordsList = new ArrayList<>();
 
         personsTest1 = new Persons(1, "Jean-Test", "Test", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
@@ -76,11 +76,11 @@ public class UrlsServiceTests extends UrlsService {
         personsTest4 = new Persons(4, "Monika-Test", "Test", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
         personsTest5 = new Persons(5, "Sebastien-Test", "Test", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
 
-        fireStationsTest1 = new FireStations(2, "2 Rue Du Test", 2);
-        fireStationsTest2 = new FireStations(3, "3 Rue Du Test", 3);
-        fireStationsTest3 = new FireStations(4, "4 Rue Du Test", 4);
-        fireStationsTest4 = new FireStations(5, "5 Rue Du Test", 5);
-        fireStationsTest5 = new FireStations(6, "6 Rue Du Test", 6);
+        firestationsTest1 = new Firestations(2, "2 Rue Du Test", 2);
+        firestationsTest2 = new Firestations(3, "3 Rue Du Test", 3);
+        firestationsTest3 = new Firestations(4, "4 Rue Du Test", 4);
+        firestationsTest4 = new Firestations(5, "5 Rue Du Test", 5);
+        firestationsTest5 = new Firestations(6, "6 Rue Du Test", 6);
 
         medications1 = new ArrayList<>();
         medications1.add("testazine:150mg");
@@ -113,11 +113,11 @@ public class UrlsServiceTests extends UrlsService {
         personsList.add(personsTest4);
         personsList.add(personsTest5);
 
-        fireStationsList.add(fireStationsTest1);
-        fireStationsList.add(fireStationsTest2);
-        fireStationsList.add(fireStationsTest3);
-        fireStationsList.add(fireStationsTest4);
-        fireStationsList.add(fireStationsTest5);
+        firestationsList.add(firestationsTest1);
+        firestationsList.add(firestationsTest2);
+        firestationsList.add(firestationsTest3);
+        firestationsList.add(firestationsTest4);
+        firestationsList.add(firestationsTest5);
 
         medicalRecordsList.add(medicalRecordsTest1);
         medicalRecordsList.add(medicalRecordsTest2);
@@ -138,10 +138,10 @@ public class UrlsServiceTests extends UrlsService {
         try {
             this.recoverDatabaseFromJSON(testDatabasePath);
             returnedPersonsList = pDao.findAll();
-            returnedFireStationsList = fsDao.findAll();
+            returnedFirestationsList = fsDao.findAll();
             returnedMedicalRecordsList = mrDao.findAll();
             assertEquals(personsList.toString(), returnedPersonsList.toString());
-            assertEquals(fireStationsList.toString(), returnedFireStationsList.toString());
+            assertEquals(firestationsList.toString(), returnedFirestationsList.toString());
             assertEquals(medicalRecordsList.toString(), returnedMedicalRecordsList.toString());
         } catch(Exception e) {
             fail(e.toString() + ", look at your terminal / debug console for more detail");

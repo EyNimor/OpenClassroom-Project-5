@@ -1,5 +1,6 @@
 package com.openclassroom.safetynetalerts;
 
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
 import com.openclassroom.safetynetalertslibrary.dao.PersonsDao;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = PersonsDao.class)
 @EntityScan(basePackageClasses = Persons.class)
+@ExcludeFromJacocoGeneratedReport
 public class SafetynetAlertsApplication {
 	
 	public static void main(String[] args) throws Exception {

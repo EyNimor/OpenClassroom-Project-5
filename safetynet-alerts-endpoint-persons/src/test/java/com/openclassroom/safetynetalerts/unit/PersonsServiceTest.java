@@ -36,11 +36,11 @@ public class PersonsServiceTest extends PersonsService {
 
         personsList = new ArrayList<>();
 
-        personsTest1 = new Persons(1, "Jean-Test", "UnitServiceTest", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
-        personsTest2 = new Persons(2, "Marie-Test", "UnitServiceTest", "1 Rue Du Test", "TestCity", "0626272643", "marie.unit.test@tmail.com", "01860");
-        personsTest3 = new Persons(3, "Kevin-Test", "UnitServiceTest", "2 Rue Du Test", "TestCity", "0672855284", "kevin.unit.test@tmail.com", "01860");
-        personsTest4 = new Persons(4, "Monika-Test", "UnitServiceTest", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
-        personsTest5 = new Persons(5, "Sebastien-Test", "UnitServiceTest", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
+        personsTest1 = new Persons(1, "Jean-Test", "Test", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
+        personsTest2 = new Persons(2, "Marie-Test", "Test", "1 Rue Du Test", "TestCity", "0626272643", "marie.unit.test@tmail.com", "01860");
+        personsTest3 = new Persons(3, "Kevin-Test", "Test", "2 Rue Du Test", "TestCity", "0672855284", "kevin.unit.test@tmail.com", "01860");
+        personsTest4 = new Persons(4, "Monika-Test", "Test", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
+        personsTest5 = new Persons(5, "Sebastien-Test", "Test", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
 
         personsList.add(personsTest1);
         personsList.add(personsTest2);

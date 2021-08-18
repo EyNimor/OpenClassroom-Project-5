@@ -1,5 +1,5 @@
 
-			SafetyNet Alerts'
+			    SafetyNet Alerts'
 
   ---------------------
   Qu'est-ce que c'est ?
@@ -34,3 +34,19 @@
 
   3 - Allez dans le dossier en question, puis dans le dossier "safetynet-alerts-model". À l'intérieur, ouvrez un
   terminal Windows, puis entrez la commande "mvn clean install".
+
+  --------------
+  Fonctionnement
+  --------------
+
+  L'application est divisée en quatre partie principale :
+   - Persons, accessible sur le Port 9090 ;
+   - Firestations, accesible sur le Port 9060 ;
+   - MedicalRecords, accessible sur le Port 9030 ;
+   - URLsMultiInfo, accessible sur le Port 9000 ;
+  Chacune de ces parties sont des Microservices indépendants les uns des autres, et chacun ont des fonctions spécifiques, à des
+  URLs spécifiques. Pour pouvoir effectuer une requête, le microservice correspondant à la requête doit être lancé.
+  Pour cela, lancez un terminal de commande dans le dossier correspondant ( safetynet-alerts-endpoint-persons pour la
+  partie Persons par exemple ) et faites la commande "mvn spring-boot:run". Le terminal doit rester ouvert pour garder
+  le microservice lancé. Une liste des requêtes et URLs disponibles pour chaque microservices est fourni dans le fichier urls.txt.
+   

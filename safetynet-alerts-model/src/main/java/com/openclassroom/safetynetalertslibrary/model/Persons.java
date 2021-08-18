@@ -7,10 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
+
 import org.json.simple.JSONObject;
 
 /**
- * <p>Class thay contains informations about a person. Composed of : </p>
+ * <p>The {@code Persons} Class contains six informations about a person : </p>
  * <ul>
  * <li>First Name</li>
  * <li>Last Name</li>
@@ -19,10 +21,16 @@ import org.json.simple.JSONObject;
  * <li>Phone</li>
  * <li>Email</li>
  * </ul>
- * <p>An ID value is generated automatically when a Persons var is created. Permit the interaction with a SQL Database.</p>
+ * <p>Have a full person profile require a {@code Persons} value, and a {@code MedicalRecords} value. To link a {@code Persons} to a 
+ * {@code MedicalRecords}, only the FirstName and the LastName value can be used, because they are the only two value that are common
+ * to {@code Persons} and {@code MedicalRecords} class. Consequently, the FirstName and the LastName can't be identical between two
+ * {@code Persons} variable.</p>
+ * @see com.openclassroom.safetynetalertslibrary.model.MedicalRecords
+ * @author Yves Lesaque
  */
 @Entity
 @Table(name = "Persons")
+@ExcludeFromJacocoGeneratedReport
 public class Persons {
 
     @Id

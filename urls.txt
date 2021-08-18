@@ -1,0 +1,154 @@
+
+			    SafetyNet Alerts' - URLs
+
+  Voici la liste compléte des URLs disponibles pour l'API, ainsi que les requêtes associées,
+  les paramètres de requête et/ou le body de la requête, et le résultat de la requête.
+  Pour chaque URL, les informations entre <crochets> sont à remplacer par l'informations indiqué
+  à l'intérieur. Exemple : <Adresse API> est à remplacer par l'adresse Internet de l'API, ou par
+  l'adresse "localhost".
+
+  ---------------------------
+  URLs - Microservice Persons
+  ---------------------------
+
+  <Adresse API>/person/communityEmail?city=<Ville> | Requête GET :
+   - Paramètre(s) : le nom d'une ville ;
+   - Résultat : affiche la liste de toute les adresses mail des habitants de la ville ;
+
+  <Adresse API>/person/newPerson | Requête POST :
+   - Body : le profil intégrale d'une personne, avec Prénom, Nom de Famille, Adresse, Ville, Code Postale, Numéro de Téléphone, et Adresse Mail ;
+   - Résultat : nouvelle personne enregistré dans la base de donnée ;
+
+  <Adresse API>/person/updatePerson | Requête PUT :
+   - Body : le profil intégrale d'une personne déjà dans la base de donnée, avec Prénom, Nom de Famille, Adresse, Ville, Code Postale, Numéro de Téléphone, et Adresse Mail ;
+   - Résultat : informations de la personne mises à jour ;
+
+  <Adresse API>/person/deletePerson?firstName=<Prénom>&lastName=<Nom de Famille> | Requête DELETE :
+   - Paramètre(s) : le prénom et le nom de famille de la personne ;
+   - Résultat : la personne est supprimé de la base de donnée ;
+
+  --------------------------------
+  URLs - Microservice Firestations
+  --------------------------------
+
+  <Adresse API>/firestation/newFirestation | Requête POST :
+   - Body : le profil intégrale d'une caserne de pompier, avec la ou une des Adresse couverte, et son Numéro de Caserne ;
+   - Résultat : nouvelle caserne enregistrée dans la base de donnée
+
+  <Adresse API>/firestation/updateFirestation | Requête PUT :
+   - Body : le profil intégrale d'une caserne de pompier déjà dans la base de donnée, avec la ou une des Adresse couverte, et son Numéro de Caserne ;
+   - Résultat : informations de la caserne mises à jour ;
+
+  <Adresse API>/firestation/deleteFirestation?address=<Adresse couverte par la station> | Requête DELETE :
+   - Paramètre(s) : l'adresse couverte à supprimer de la caserne ;
+   - Résultat : adresse couverte supprimée ;
+   ( Note : cette requête ne supprime pas une caserne, mais une adresse enregistré comme étant couverte par une caserne, et qui ne l'est pas.
+     Pour supprimer un caserne complétement, il faut effectuer cette requête avec toute les adresses couverte par la caserne )
+
+  ----------------------------------
+  URLs - Microservice MedicalRecords
+  ----------------------------------
+
+  <Adresse API>/medicalRecords/newMedicalRecords | Requête GET :
+   - Body : le profil médical intégrale d'une personne, avec Prénom, Nom de Famille, Date de Naissance, Traitement(s) médical(aux), et Allergie(s) ;
+   - Résultat : nouveau profil medical enregistré dans la base de donnée ;
+
+  <Adresse API>/medicalRecords/updateMedicalRecords | Requête PUT :
+   - Body : le profil médical intégrale d'une personne déjà dans la base de donnée, avec Prénom, Nom de Famille, Date de Naissance, Traitement(s) médical(aux), et Allergie(s) ;
+   - Résultat : informations médicales de la personne mises à jour ;
+
+  <Adresse API>/medicalRecords/deleteMedicalRecords?firstName=<Prénom>&lastName=<Nom de Famille> | Requête DELETE :
+   - Paramètre(s) : le prénom et le nom de famille de la personne ;
+   - Résultat : informations médicales de la personne supprimées de la base de donnée ;
+
+  -------------------------------------------
+  URLs - Microservice URLs Multi informations
+  -------------------------------------------
+
+  <Adresse API>/firestation?stationNumber=<Numéro de Caserne> | Requête GET :
+   - Paramètre(s) : le Numéro d'une caserne de pompier ;
+   - Résultat : affiche une liste des personnes couvertes par la caserne, avec leur Prénom, Nom, Adresse, et Numéro de Téléphone, ainsi que le nombre d'enfant et d'adulte dans la liste ;
+
+  <Adresse API>/childAlert?address=<Adresse> | Requête GET :
+   - Paramètre(s) : une adresse postale ;
+   - Résultat : affiche une liste d'enfants habitant à cette adresse, avec le Prénom, le Nom, et l'Âge, ainsi que les autres membres du foyer.
+                si aucun enfant habite cette adresse, n'affiche rien ;
+
+  <Adresse API>/phoneAlert?firestation=<Numéro de Caserne> | Requête GET :
+   - Paramètre(s) : le Numéro d'une caserne de pompier ;
+   - Résultat : affiche une liste de numéro de téléphone appartenant aux personnes couvertes par la caserne ;
+
+  <Adresse API>/fire?address=<Adresse> | Requête GET :
+   - Paramètre(s) : une adresse postale ;
+   - Résultat : affiche les personnes habitant à l'adresse donnée, avec Prénom, Nom, Numéro de Téléphone, Âge, et Antécédents médicaux, ainsi que le Numéro de la Caserne les déservant ;
+
+  <Adresse API>/flood/stations?stations=<Liste de Numéro de Caserne> | Requête GET :
+   - Paramètre(s) : une liste de Numéro de caserne de pompier ;
+   - Résultat : affiche une liste de tout les foyers couverts par la ou les casernes, avec Prénom, Nom, Numéro de Téléphone, Âge, et Antécédents médicaux des personnes habitant ces foyers ;
+
+  <Adresse API>/personInfo?firstName=<Prénom>&lastName=<Nom de Famille> | Requête GET :
+   - Paramètre(s) : le prénom et le nom de famille de la personne ;
+   - Résultat : affiche le Prénom, le Nom, l'Adresse, l'Âge, l'Adresse Mail, et les Antécédents Médicaux de la personne ;
+
+  ----------------
+  Exemples de Body
+  ----------------
+
+  Les Body utilisé par certaines requêtes sont écrites au format .json, et certaines informations nécessitent un format d'écriture
+  bien précis. Dans ce cas, en dessous du Body, le format d'écriture à utiliser sera indiqué.
+
+  - Body Person :
+
+   {
+     "persons": [
+         {
+             "zip": "75104",
+             "firstName": "Jean",
+             "lastName": "Dupont",
+             "address": "1 Rue Jean Moulin",
+             "city": "Paris",
+             "phone": "0655199181",
+             "email": "jean.dupont@gmail.com"
+         }
+     ]
+   }
+
+   Notes de format :
+    - "address" : contient le numéro et la rue de l'adresse. Pour éviter le moindre problème, ne mettez aucune virgule entre le numéro et la rue ;
+
+  - Body Firestation :
+
+   {
+     "firestations": [
+         {
+             "address": "1 Rue Jean Moulin",
+             "station": 1
+         }
+     ]
+   }
+
+   Notes de format :
+    - "address" : contient le numéro et la rue de l'adresse. Pour éviter le moindre problème, ne mettez aucune virgule entre le numéro et la rue ;
+
+  - Body MedicalRecords :
+
+   {
+     "medicalRecords": [
+       {
+           "allergies": "lactose, gluten",
+           "firstName": "Jean",
+           "lastName": "Dupont",
+           "birthdate": "05/24/1998",
+           "medications": "zirtecset:10mg, aznol:350mg"
+       }
+     ]
+   }
+
+   Notes de format :
+    - "birthdate" : la date de Naissance est en format américain, donc sous cette forme "MM/JJ/AAAA" ;
+    - "allergies" : si la personne à plusieurs allergies, il faut les marquer comme suit : "Allergie 1, Allergie 2, Allergie 3", à savoir avec une virgule puis un espace entre chaque allergie ;
+    - "medications" : si la personne à plusieurs traitements médicaux, il faut les marquer comme suit : "Traitement 1, Traitement 2, Traitement 3", à savoir avec une virgule puis un espace entre chaque traitement médical.
+                      les traitements médicaux s'écrivent comme suit : "Traitement:Dosage", à savoir avec le nom du médicament, puis le dosage de ce médicament, avec un ":" entre les deux ;
+
+
+

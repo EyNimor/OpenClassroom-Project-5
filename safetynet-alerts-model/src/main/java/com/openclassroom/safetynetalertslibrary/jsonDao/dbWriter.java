@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 
@@ -32,14 +32,14 @@ public class dbWriter {
         catch(Exception e) { e.printStackTrace(); }
 	}
 
-    public static void writeFireStationsToJsonFile(File filename, List<FireStations> fireStationsList) {
+    public static void writeFirestationsToJsonFile(File filename, List<Firestations> firestationsList) {
         try {
             JSONObject jsonObject = (JSONObject) dbReader.readJsonFile(filename);
-            JSONArray fireStationsArray = new JSONArray();
+            JSONArray firestationsArray = new JSONArray();
 
             jsonObject.remove("firestations");
-            for(int i = 0; i <= (fireStationsList.size() - 1); i++) { fireStationsArray.add(fireStationsList.get(i).toJsonObject()); }
-            jsonObject.put("firestations", fireStationsArray);
+            for(int i = 0; i <= (firestationsList.size() - 1); i++) { firestationsArray.add(firestationsList.get(i).toJsonObject()); }
+            jsonObject.put("firestations", firestationsArray);
 
             FileWriter writer = new FileWriter(filename);
             writer.write(jsonObject.toString());

@@ -7,13 +7,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
+import com.openclassroom.safetynetalertslibrary.dao.FirestationDao;
 import com.openclassroom.safetynetalertslibrary.dao.MedicalRecordsDao;
 import com.openclassroom.safetynetalertslibrary.dao.PersonsDao;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
-import com.openclassroom.safetynetalertsurlsmultiinfos.model.FireStationCovering;
+import com.openclassroom.safetynetalertsurlsmultiinfos.model.FirestationCovering;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.HouseCovered;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.HouseURL;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.PersonURL;
@@ -32,7 +32,7 @@ public class ApiIntegrationTests extends UrlsController {
     @Autowired
     protected PersonsDao pDao;
     @Autowired
-    protected FireStationDao fsDao;
+    protected FirestationDao fsDao;
     @Autowired
     protected MedicalRecordsDao mrDao;
     
@@ -44,13 +44,13 @@ public class ApiIntegrationTests extends UrlsController {
 
     private static List<Persons> testPersonDB;
 
-    private static FireStations fireStationsTest1,
-                                fireStationsTest2,
-                                fireStationsTest3,
-                                fireStationsTest4,
-                                fireStationsTest5;
+    private static Firestations firestationsTest1,
+                                firestationsTest2,
+                                firestationsTest3,
+                                firestationsTest4,
+                                firestationsTest5;
 
-    private static List<FireStations> testFireStationDB;
+    private static List<Firestations> testFirestationDB;
 
     private static MedicalRecords medicalRecordsTest1,
                                     medicalRecordsTest2,
@@ -78,7 +78,7 @@ public class ApiIntegrationTests extends UrlsController {
         testInProgress = true;
 
         testPersonDB = new ArrayList<>();
-        testFireStationDB = new ArrayList<>();
+        testFirestationDB = new ArrayList<>();
         testMedicalRecordsDB = new ArrayList<>();
 
         personsTest1 = new Persons(1, "Jean-Test", "Test", "1 Rue Du Test", "TestCity", "0655199181", "jean.unit.test@tmail.com", "01860");
@@ -87,11 +87,11 @@ public class ApiIntegrationTests extends UrlsController {
         personsTest4 = new Persons(4, "Monika-Test", "Test", "2 Rue Du Test", "TestCity", "0624659300", "monika.unit.test@tmail.com", "01860");
         personsTest5 = new Persons(5, "Sebastien-Test", "Test", "3 Rue Du Test", "TestCity", "0659396107", "sebastien.unit.test@tmail.com", "01860");
 
-        fireStationsTest1 = new FireStations(2, "2 Rue Du Test", 2);
-        fireStationsTest2 = new FireStations(3, "3 Rue Du Test", 3);
-        fireStationsTest3 = new FireStations(4, "4 Rue Du Test", 4);
-        fireStationsTest4 = new FireStations(5, "5 Rue Du Test", 5);
-        fireStationsTest5 = new FireStations(6, "6 Rue Du Test", 6);
+        firestationsTest1 = new Firestations(2, "2 Rue Du Test", 2);
+        firestationsTest2 = new Firestations(3, "3 Rue Du Test", 3);
+        firestationsTest3 = new Firestations(4, "4 Rue Du Test", 4);
+        firestationsTest4 = new Firestations(5, "5 Rue Du Test", 5);
+        firestationsTest5 = new Firestations(6, "6 Rue Du Test", 6);
 
         medications1 = new ArrayList<>();
         medications1.add("testazine:150mg");
@@ -124,11 +124,11 @@ public class ApiIntegrationTests extends UrlsController {
         testPersonDB.add(personsTest4);
         testPersonDB.add(personsTest5);
 
-        testFireStationDB.add(fireStationsTest1);
-        testFireStationDB.add(fireStationsTest2);
-        testFireStationDB.add(fireStationsTest3);
-        testFireStationDB.add(fireStationsTest4);
-        testFireStationDB.add(fireStationsTest5);
+        testFirestationDB.add(firestationsTest1);
+        testFirestationDB.add(firestationsTest2);
+        testFirestationDB.add(firestationsTest3);
+        testFirestationDB.add(firestationsTest4);
+        testFirestationDB.add(firestationsTest5);
 
         testMedicalRecordsDB.add(medicalRecordsTest1);
         testMedicalRecordsDB.add(medicalRecordsTest2);
@@ -142,15 +142,15 @@ public class ApiIntegrationTests extends UrlsController {
         pDao.deleteAll();
         fsDao.deleteAll();
         mrDao.deleteAll();
-        try {
-            urlsService.recoverDatabaseFromJSON(testDatabasePath);
-        } catch(Exception e) {
-            
+        try { urlsService.recoverDatabaseFromJSON(testDatabasePath); }
+        catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Test
-    void fireStationURLTest() {
+    void firestationURLTest() {
         PersonURL personURL1 = new PersonURL(personsTest3);
         PersonURL personURL2 = new PersonURL(personsTest4);
         List<PersonURL> personURLList = new ArrayList<>();
@@ -186,7 +186,7 @@ public class ApiIntegrationTests extends UrlsController {
         PersonURL personURL = new PersonURL(personsTest5, medicalRecordsTest5);
         List<PersonURL> personURLList = new ArrayList<>();
         personURLList.add(personURL);
-        FireStationCovering expectedObject = new FireStationCovering(personURLList, fireStationsTest2.getStation());
+        FirestationCovering expectedObject = new FirestationCovering(personURLList, firestationsTest2.getStation());
 
         MappingJacksonValue returnedObject = this.fire(personsTest5.getAddress());
         assertEquals(expectedObject.toString(), returnedObject.getValue().toString());
@@ -195,8 +195,8 @@ public class ApiIntegrationTests extends UrlsController {
     @Test
     void floodTest() {
         List<Integer> stationNumberList = new ArrayList<>();
-        stationNumberList.add(fireStationsTest1.getStation());
-        stationNumberList.add(fireStationsTest2.getStation());
+        stationNumberList.add(firestationsTest1.getStation());
+        stationNumberList.add(firestationsTest2.getStation());
         PersonURL personURL1 = new PersonURL(personsTest3, medicalRecordsTest3);
         PersonURL personURL2 = new PersonURL(personsTest4, medicalRecordsTest4);
         PersonURL personURL3 = new PersonURL(personsTest5, medicalRecordsTest5);

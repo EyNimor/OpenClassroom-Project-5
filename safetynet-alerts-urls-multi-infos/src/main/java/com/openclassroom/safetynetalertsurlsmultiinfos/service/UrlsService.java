@@ -10,16 +10,16 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
+import com.openclassroom.safetynetalertslibrary.dao.FirestationDao;
 import com.openclassroom.safetynetalertslibrary.dao.MedicalRecordsDao;
 import com.openclassroom.safetynetalertslibrary.dao.PersonsDao;
 import com.openclassroom.safetynetalertslibrary.jsonDao.dbReader;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.HouseURL;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.PersonURL;
-import com.openclassroom.safetynetalertsurlsmultiinfos.model.FireStationCovering;
+import com.openclassroom.safetynetalertsurlsmultiinfos.model.FirestationCovering;
 import com.openclassroom.safetynetalertsurlsmultiinfos.model.HouseCovered;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +38,7 @@ public class UrlsService {
     @Autowired
     protected PersonsDao pDao;
     @Autowired
-    protected FireStationDao fsDao;
+    protected FirestationDao fsDao;
     @Autowired
     protected MedicalRecordsDao mrDao;
 
@@ -61,12 +61,12 @@ public class UrlsService {
         }
     }
 
-    public FireStations saveFireStation(FireStations fireStationToSave) {
-        logger.info("FireStation - Sauvegarde : " + fireStationToSave.toString());
+    public Firestations saveFirestation(Firestations firestationToSave) {
+        logger.info("Firestation - Sauvegarde : " + firestationToSave.toString());
         boolean saved = false;
-        FireStations fireStationSaved = new FireStations();
+        Firestations firestationSaved = new Firestations();
         try { 
-            fireStationSaved = fsDao.save(fireStationToSave);
+            firestationSaved = fsDao.save(firestationToSave);
             saved = true;
         }
         catch(IllegalArgumentException e) { 
@@ -76,7 +76,7 @@ public class UrlsService {
             return null;
         }
         else {
-            return fireStationSaved;
+            return firestationSaved;
         }
     }
 
@@ -112,8 +112,8 @@ public class UrlsService {
         return age;
     }
 
-    public MappingJacksonValue filterObject(Object objectToFilter, String[] things, boolean toKeep) {
-        if (toKeep == true) {
+    public MappingJacksonValue filterObject(Object objectToFilter, String[] things, boolean isThingsToKeep) {
+        if (isThingsToKeep == true) {
             SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept(things);
             FilterProvider filters = new SimpleFilterProvider().addFilter("personFilter", filter);
             MappingJacksonValue filteredObject = new MappingJacksonValue(objectToFilter);
@@ -130,15 +130,15 @@ public class UrlsService {
     }
 
     public MappingJacksonValue personsCoveredByThisStation(Integer stationNumber) {
-        List<FireStations> fireStations = fsDao.findByStation(stationNumber);
+        List<Firestations> firestations = fsDao.findByStation(stationNumber);
         List<HouseURL> houseList = new ArrayList<>();
         Integer adultCount = 0;
         Integer childCount = 0;
         HouseCovered urlObject;
 
         try {
-            for(int i = 0 ; i < fireStations.size() ; i++) {
-                List<Persons> personsCovered = pDao.findByAddress(fireStations.get(i).getAddress());
+            for(int i = 0 ; i < firestations.size() ; i++) {
+                List<Persons> personsCovered = pDao.findByAddress(firestations.get(i).getAddress());
                 List<PersonURL> personList = new ArrayList<>();
                 for(int u = 0 ; u < personsCovered.size() ; u++) {
                     PersonURL personURL = new PersonURL(personsCovered.get(u));
@@ -153,7 +153,7 @@ public class UrlsService {
                     }
                 }
                 HouseURL house = new HouseURL();
-                house.setAddress(fireStations.get(i).getAddress());
+                house.setAddress(firestations.get(i).getAddress());
                 house.setPersonList(personList);
 
                 houseList.add(house);
@@ -204,12 +204,12 @@ public class UrlsService {
     }
 
     public List<String> phoneOfPersonsCoveredByThisStation(Integer stationNumber) {
-        List<FireStations> fireStations = fsDao.findByStation(stationNumber);
+        List<Firestations> firestations = fsDao.findByStation(stationNumber);
         List<Persons> personsCovered = new ArrayList<>();
         List<String> phoneList = new ArrayList<>();
 
-        for(int i = 0 ; i < fireStations.size() ; i++) {
-            personsCovered.addAll(pDao.findByAddress(fireStations.get(i).getAddress()));
+        for(int i = 0 ; i < firestations.size() ; i++) {
+            personsCovered.addAll(pDao.findByAddress(firestations.get(i).getAddress()));
         }
 
         for(int i = 0 ; i < personsCovered.size() ; i++) {
@@ -220,10 +220,10 @@ public class UrlsService {
     }
 
     public MappingJacksonValue personsAtThisAddressAndStationCoveringThisAddress(String address) {
-        FireStations coveringFireStation = fsDao.findByAddress(address);
+        Firestations coveringFirestation = fsDao.findByAddress(address);
         List<Persons> personsCovered = pDao.findByAddress(address);
         List<PersonURL> personList = new ArrayList<>();
-        FireStationCovering fireStationCovering = new FireStationCovering();
+        FirestationCovering firestationCovering = new FirestationCovering();
 
         for(int i = 0 ; i < personsCovered.size() ; i++) {
             MedicalRecords personMedicalRecords = mrDao.findByFirstNameAndLastName(personsCovered.get(i).getFirstName(), personsCovered.get(i).getLastName());
@@ -231,33 +231,33 @@ public class UrlsService {
             personList.add(personURL);
         }
 
-        fireStationCovering.setStationNumber(coveringFireStation.getStation());
-        fireStationCovering.setPersonList(personList);
+        firestationCovering.setStationNumber(coveringFirestation.getStation());
+        firestationCovering.setPersonList(personList);
 
         String[] thingsToFilterOut = {"email"};
-        MappingJacksonValue filteredFireStationCovering = filterObject(fireStationCovering, thingsToFilterOut, false);
+        MappingJacksonValue filteredFirestationCovering = filterObject(firestationCovering, thingsToFilterOut, false);
 
-        return filteredFireStationCovering;
+        return filteredFirestationCovering;
     }
 
     public MappingJacksonValue personsCoveredByEachStation(List<Integer> stationNumberList) {
-        List<FireStations> coveringFireStations = new ArrayList<>();
+        List<Firestations> coveringFirestations = new ArrayList<>();
         List<HouseURL> personsCoveredSortedByAddress = new ArrayList<>();
 
         for(int i = 0 ; i < stationNumberList.size() ; i++) {
-            coveringFireStations.addAll(fsDao.findByStation(stationNumberList.get(i)));
+            coveringFirestations.addAll(fsDao.findByStation(stationNumberList.get(i)));
         }
 
-        for(int i = 0 ; i < coveringFireStations.size() ; i++) {
+        for(int i = 0 ; i < coveringFirestations.size() ; i++) {
             List<PersonURL> personList = new ArrayList<>();
             HouseURL houseURL = new HouseURL();
-            List<Persons> personsCovered = pDao.findByAddress(coveringFireStations.get(i).getAddress());
+            List<Persons> personsCovered = pDao.findByAddress(coveringFirestations.get(i).getAddress());
             for(int u = 0 ; u < personsCovered.size() ; u++) {
                 PersonURL personURL = new PersonURL(personsCovered.get(u), mrDao.findByFirstNameAndLastName(personsCovered.get(u).getFirstName(), personsCovered.get(u).getLastName()));
                 personList.add(personURL);
             }
 
-            houseURL.setAddress(coveringFireStations.get(i).getAddress());
+            houseURL.setAddress(coveringFirestations.get(i).getAddress());
             houseURL.setPersonList(personList);
 
             personsCoveredSortedByAddress.add(houseURL);
@@ -305,10 +305,10 @@ public class UrlsService {
             dbObject = (JSONObject) dbReader.readJsonFile(filename);
             jsonArray = (JSONArray) dbObject.get("firestations");
             for(int i = 0 ; i <= jsonArray.size() - 1 ; i++) {
-                JSONObject fireStationJSON = (JSONObject) jsonArray.get(i);
-                FireStations fireStationToSave = new FireStations((String) fireStationJSON.get("address"),
-                                                                Integer.parseInt(fireStationJSON.get("station").toString()));
-                saveFireStation(fireStationToSave);
+                JSONObject firestationJSON = (JSONObject) jsonArray.get(i);
+                Firestations firestationToSave = new Firestations((String) firestationJSON.get("address"),
+                                                                Integer.parseInt(firestationJSON.get("station").toString()));
+                saveFirestation(firestationToSave);
             }
 
             dbObject = (JSONObject) dbReader.readJsonFile(filename);

@@ -8,10 +8,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openclassroom.safetynetalertsendpointfirestations.web.controller.FireStationsController;
-import com.openclassroom.safetynetalertslibrary.dao.FireStationDao;
+import com.openclassroom.safetynetalertsendpointfirestations.web.controller.FirestationsController;
+import com.openclassroom.safetynetalertslibrary.dao.FirestationDao;
 import com.openclassroom.safetynetalertslibrary.jsonDao.dbWriter;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,23 +21,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class ApiIntegrationSaveTest extends FireStationsController {
+public class ApiIntegrationSaveTest extends FirestationsController {
 
     @Autowired
-    private FireStationDao fsDao;
+    private FirestationDao fsDao;
 
-    private static FireStations fireStationPostTest,
-                                fireStationPutTest,
-                                fireStationDeleteTest,
-                                returnedFireStation;
+    private static Firestations firestationPostTest,
+                                firestationPutTest,
+                                firestationDeleteTest,
+                                returnedFirestation;
 
-    private static FireStations fireStationsTestDB1,
-                                fireStationsTestDB2,
-                                fireStationsTestDB3,
-                                fireStationsTestDB4,
-                                fireStationsTestDB5;
+    private static Firestations firestationsTestDB1,
+                                firestationsTestDB2,
+                                firestationsTestDB3,
+                                firestationsTestDB4,
+                                firestationsTestDB5;
 
-    private static List<FireStations> testDBFireStationsList;
+    private static List<Firestations> testDBFirestationsList;
 
     private File testDatabasePath = new File("../Database/testData.json");
 
@@ -45,23 +45,23 @@ public class ApiIntegrationSaveTest extends FireStationsController {
     private static void setUp() {
         testInProgress = true;
 
-        testDBFireStationsList = new ArrayList<>();
+        testDBFirestationsList = new ArrayList<>();
         
-        fireStationPostTest = new FireStations("1 Rue Du Test", 1);
-        fireStationPutTest = new FireStations("1 Rue Du Test", 10);
-        fireStationDeleteTest = new FireStations("21 Rue Du Test", 2);
+        firestationPostTest = new Firestations("1 Rue Du Test", 1);
+        firestationPutTest = new Firestations("1 Rue Du Test", 10);
+        firestationDeleteTest = new Firestations("21 Rue Du Test", 2);
 
-        fireStationsTestDB1 = new FireStations(2, "2 Rue Du Test", 2);
-        fireStationsTestDB2 = new FireStations(3, "3 Rue Du Test", 3);
-        fireStationsTestDB3 = new FireStations(4, "4 Rue Du Test", 4);
-        fireStationsTestDB4 = new FireStations(5, "5 Rue Du Test", 5);
-        fireStationsTestDB5 = new FireStations(6, "6 Rue Du Test", 6);
+        firestationsTestDB1 = new Firestations(2, "2 Rue Du Test", 2);
+        firestationsTestDB2 = new Firestations(3, "3 Rue Du Test", 3);
+        firestationsTestDB3 = new Firestations(4, "4 Rue Du Test", 4);
+        firestationsTestDB4 = new Firestations(5, "5 Rue Du Test", 5);
+        firestationsTestDB5 = new Firestations(6, "6 Rue Du Test", 6);
 
-        testDBFireStationsList.add(fireStationsTestDB1);
-        testDBFireStationsList.add(fireStationsTestDB2);
-        testDBFireStationsList.add(fireStationsTestDB3);
-        testDBFireStationsList.add(fireStationsTestDB4);
-        testDBFireStationsList.add(fireStationsTestDB5);
+        testDBFirestationsList.add(firestationsTestDB1);
+        testDBFirestationsList.add(firestationsTestDB2);
+        testDBFirestationsList.add(firestationsTestDB3);
+        testDBFirestationsList.add(firestationsTestDB4);
+        testDBFirestationsList.add(firestationsTestDB5);
     }
 
     @BeforeEach
@@ -73,17 +73,17 @@ public class ApiIntegrationSaveTest extends FireStationsController {
 
     @AfterEach
     private void afterEachTest() {
-        dbWriter.writeFireStationsToJsonFile(filename, testDBFireStationsList);
+        dbWriter.writeFirestationsToJsonFile(filename, testDBFirestationsList);
     }
 
     @Test
     void postRequestTest() {
-        this.newFireStation(fireStationPostTest);
+        this.newFirestation(firestationPostTest);
         fsDao.deleteAll();
         try {
             fsService.recoverDatabaseFromJSON(filename);
-            returnedFireStation = fsDao.findAll().get(0);
-            assertEquals(fireStationPostTest.toString(), returnedFireStation.toString());
+            returnedFirestation = fsDao.findAll().get(0);
+            assertEquals(firestationPostTest.toString(), returnedFirestation.toString());
         }
         catch(Exception e) {
             fail(e.toString() + ", look at your terminal / debug console for more detail");
@@ -93,13 +93,13 @@ public class ApiIntegrationSaveTest extends FireStationsController {
 
     @Test
     void putRequestTest() {
-        this.newFireStation(fireStationPostTest);
-        this.updateFireStation(fireStationPutTest);
+        this.newFirestation(firestationPostTest);
+        this.updateFirestation(firestationPutTest);
         fsDao.deleteAll();
         try {
             fsService.recoverDatabaseFromJSON(filename);
-            returnedFireStation = fsDao.findAll().get(0);
-            assertEquals(fireStationPutTest.toString(), returnedFireStation.toString());
+            returnedFirestation = fsDao.findAll().get(0);
+            assertEquals(firestationPutTest.toString(), returnedFirestation.toString());
         }
         catch(Exception e) {
             fail(e.toString() + ", look at your terminal / debug console for more detail");
@@ -109,13 +109,13 @@ public class ApiIntegrationSaveTest extends FireStationsController {
 
     @Test
     void deleteRequestTest() {
-        dbWriter.writeFireStationsToJsonFile(filename, testDBFireStationsList);
-        this.newFireStation(fireStationDeleteTest);
-        this.deleteFireStation(fireStationDeleteTest.getAddress());
+        dbWriter.writeFirestationsToJsonFile(filename, testDBFirestationsList);
+        this.newFirestation(firestationDeleteTest);
+        this.deleteFirestation(firestationDeleteTest.getAddress());
         try {
             fsService.recoverDatabaseFromJSON(filename);
-            returnedFireStation = fsDao.findByAddress(fireStationDeleteTest.getAddress());
-            assertNull(returnedFireStation);
+            returnedFirestation = fsDao.findByAddress(firestationDeleteTest.getAddress());
+            assertNull(returnedFirestation);
         }
         catch(Exception e) {
             fail(e.toString() + ", look at your terminal / debug console for more detail");

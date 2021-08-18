@@ -2,15 +2,18 @@ package com.openclassroom.safetynetalertsurlsmultiinfos.model;
 
 import java.util.List;
 
-public class FireStationCovering {
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
+public class FirestationCovering {
 
     private List<PersonURL> personList;
 
     private Integer stationNumber;
 
-    public FireStationCovering() {}
+    public FirestationCovering() {}
 
-    public FireStationCovering(List<PersonURL> personList, Integer stationNumber) {
+    public FirestationCovering(List<PersonURL> personList, Integer stationNumber) {
         this.personList = personList;
         this.stationNumber = stationNumber;
     }
@@ -33,7 +36,7 @@ public class FireStationCovering {
 
     @Override
     public String toString() {
-        return "FireStationCovering [personList=" + personList.toString() + ", stationNumber=" + stationNumber + "]";
+        return "FirestationCovering [personList=" + personList.toString() + ", stationNumber=" + stationNumber + "]";
     }
     
 }

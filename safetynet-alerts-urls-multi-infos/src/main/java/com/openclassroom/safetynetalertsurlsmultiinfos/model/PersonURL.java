@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
 import com.openclassroom.safetynetalertslibrary.model.MedicalRecords;
 import com.openclassroom.safetynetalertslibrary.model.Persons;
 import com.openclassroom.safetynetalertsurlsmultiinfos.service.UrlsService;
 
 @JsonFilter("personFilter")
+@ExcludeFromJacocoGeneratedReport
 public class PersonURL {
 
     private String firstName,

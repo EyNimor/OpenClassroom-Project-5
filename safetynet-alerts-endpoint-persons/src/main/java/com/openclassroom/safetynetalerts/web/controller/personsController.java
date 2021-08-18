@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/person")
 public class personsController {
 
     private static final Logger logger = LogManager.getLogger("PersonsController");
@@ -55,7 +55,7 @@ public class personsController {
         return ps.findCityService(city);
     }
 
-    @PostMapping(value = "/person")
+    @PostMapping(value = "/newPerson")
     public ResponseEntity<Object> newPerson(@RequestBody Persons personToSave) {
         logger.info("Requête POST - Paramètre Body Personne à enregistrer");
         if (ps.isPersonAlreadyExist(personToSave) == true) {
@@ -83,7 +83,7 @@ public class personsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping(value = "/person")
+    @PutMapping(value = "/updatePerson")
     public ResponseEntity<Void> updatePerson(@RequestBody Persons newPersonInfo) {
         logger.info("Requête PUT - Paramètre Body Personne à mettre à jour");
         ps.updatePerson(newPersonInfo);
@@ -101,7 +101,7 @@ public class personsController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping(value = "/person")
+    @DeleteMapping(value = "/deletePerson")
     public ResponseEntity<Void> deletePerson(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
         logger.info("Requête DELETE - Paramètre Prénom, Paramètre Nom de Famille");
         boolean deleted = ps.deletePerson(firstName, lastName);

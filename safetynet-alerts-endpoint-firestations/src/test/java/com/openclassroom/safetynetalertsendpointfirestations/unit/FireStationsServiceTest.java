@@ -12,41 +12,41 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.openclassroom.safetynetalertsendpointfirestations.service.FireStationsService;
-import com.openclassroom.safetynetalertsendpointfirestations.web.controller.FireStationsController;
-import com.openclassroom.safetynetalertslibrary.model.FireStations;
+import com.openclassroom.safetynetalertsendpointfirestations.service.FirestationsService;
+import com.openclassroom.safetynetalertsendpointfirestations.web.controller.FirestationsController;
+import com.openclassroom.safetynetalertslibrary.model.Firestations;
 
 @SpringBootTest
-public class FireStationsServiceTest extends FireStationsService {
+public class FirestationsServiceTest extends FirestationsService {
 
-    private static FireStations fireStationsTest1,
-                                fireStationsTest2,
-                                fireStationsTest3,
-                                fireStationsTest4,
-                                fireStationsTest5;
+    private static Firestations firestationsTest1,
+                                firestationsTest2,
+                                firestationsTest3,
+                                firestationsTest4,
+                                firestationsTest5;
 
-    private static List<FireStations> fireStationsList,
-                                    returnedFireStationsList;
+    private static List<Firestations> firestationsList,
+                                    returnedFirestationsList;
 
     private File testDatabasePath = new File("../Database/testData.json");
 
     @BeforeAll
     private static void setUp() {
-        FireStationsController.testInProgress = true;
+        FirestationsController.testInProgress = true;
 
-        fireStationsList = new ArrayList<>();
+        firestationsList = new ArrayList<>();
 
-        fireStationsTest1 = new FireStations(2, "2 Rue Du Test", 2);
-        fireStationsTest2 = new FireStations(3, "3 Rue Du Test", 3);
-        fireStationsTest3 = new FireStations(4, "4 Rue Du Test", 4);
-        fireStationsTest4 = new FireStations(5, "5 Rue Du Test", 5);
-        fireStationsTest5 = new FireStations(6, "6 Rue Du Test", 6);
+        firestationsTest1 = new Firestations(2, "2 Rue Du Test", 2);
+        firestationsTest2 = new Firestations(3, "3 Rue Du Test", 3);
+        firestationsTest3 = new Firestations(4, "4 Rue Du Test", 4);
+        firestationsTest4 = new Firestations(5, "5 Rue Du Test", 5);
+        firestationsTest5 = new Firestations(6, "6 Rue Du Test", 6);
 
-        fireStationsList.add(fireStationsTest1);
-        fireStationsList.add(fireStationsTest2);
-        fireStationsList.add(fireStationsTest3);
-        fireStationsList.add(fireStationsTest4);
-        fireStationsList.add(fireStationsTest5);
+        firestationsList.add(firestationsTest1);
+        firestationsList.add(firestationsTest2);
+        firestationsList.add(firestationsTest3);
+        firestationsList.add(firestationsTest4);
+        firestationsList.add(firestationsTest5);
     } 
 
     @BeforeEach
@@ -58,8 +58,8 @@ public class FireStationsServiceTest extends FireStationsService {
     void recoveringDatabaseTest() {
         try {
             this.recoverDatabaseFromJSON(testDatabasePath);
-            returnedFireStationsList = fsDao.findAll();
-            assertEquals(fireStationsList.toString(), returnedFireStationsList.toString());
+            returnedFirestationsList = fsDao.findAll();
+            assertEquals(firestationsList.toString(), returnedFirestationsList.toString());
         }
         catch(Exception e) {
             fail(e.toString() + ", look at your terminal / debug console for more detail");

@@ -3,15 +3,24 @@ package com.openclassroom.safetynetalertslibrary.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.json.simple.JSONObject;
 
+/**
+ * <p>The {@code Firestation} class identifie a firestation by its station number, and the addresses that it cover. For one
+ * firestation, it can have many {@code Firestation} value as possible, and its station number permit to identify what address it cover. </p>
+ * @author Yves Lesaque
+ */
 @Entity
-@Table(name = "FireStations")
-public class FireStations {
+@Table(name = "Firestations")
+@ExcludeFromJacocoGeneratedReport
+public class Firestations {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,15 +32,15 @@ public class FireStations {
     @NotNull
     private Integer station;
 
-    public FireStations() {}
+    public Firestations() {}
 
-    public FireStations(Integer id, String address, Integer station) {
+    public Firestations(Integer id, String address, Integer station) {
         this.id = id;
         this.address = address;
         this.station = station;
     }
 
-    public FireStations(String address, Integer station) {
+    public Firestations(String address, Integer station) {
         this.address = address;
         this.station = station;
     }
@@ -62,7 +71,7 @@ public class FireStations {
     
     @Override
     public String toString() {
-        return "FireStations [address=" + address + ", station=" + station + "]";
+        return "Firestations [address=" + address + ", station=" + station + "]";
     }
 
     public JSONObject toJsonObject() {

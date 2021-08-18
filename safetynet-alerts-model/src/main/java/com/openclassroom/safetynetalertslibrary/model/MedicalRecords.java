@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -15,8 +17,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * <p>The {@code MedicalRecords} Class contains 5 medicals informations about a person : </p>
+ * <ul>
+ * <li>First Name</li>
+ * <li>Last Name</li>
+ * <li>Birthdate</li>
+ * <li>Medications</li>
+ * <li>Allergies</li>
+ * </ul>
+ * <p>Due to the impossibility of save a {@code List} variable in a SQL database, the Medications and the Allergies value
+ * are type {@code String}, and the {@code MedicalRecords} class convert {@code List} to {@code String} during the constructor, and
+ * when using a {@code setMedications(List<String> medications)} or a {@code setAllergies(List<String> allergies)} method. </p>
+ * <p>Have a full person profile require a {@code Persons} value, and a {@code MedicalRecords} value. To link a {@code Persons} to a 
+ * {@code MedicalRecords}, only the FirstName and the LastName value can be used, because they are the only two value that are common
+ * to {@code Persons} and {@code MedicalRecords} class. Consequently, the FirstName and the LastName can't be identical between two
+ * {@code Persons} variable. </p>
+ * @see com.openclassroom.safetynetalertslibrary.model.Persons
+ * @author Yves Lesaque
+ */
 @Entity
 @Table(name = "MedicalRecords")
+@ExcludeFromJacocoGeneratedReport
 public class MedicalRecords {
 
     @Id

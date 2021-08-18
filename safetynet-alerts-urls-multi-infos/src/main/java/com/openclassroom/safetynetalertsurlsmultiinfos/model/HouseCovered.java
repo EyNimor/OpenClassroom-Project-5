@@ -2,6 +2,9 @@ package com.openclassroom.safetynetalertsurlsmultiinfos.model;
 
 import java.util.List;
 
+import com.openclassroom.safetynetalertslibrary.annotations.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 public class HouseCovered {
     
     private List<HouseURL> houseList ;
